@@ -38,3 +38,23 @@ app.get("/listings/:id",(req,res)=>{
         res.render("listings/info.ejs",{data:res_})
     })
 });
+
+
+// Editing the information.
+app.get("/listings/:id/edit",(req,res)=>{
+    let {id}=req.params;
+    User.findById(id).then((res_)=>{
+        res.render("listings/edit.ejs",{data:res_});
+    })
+});
+
+
+//UPDATE route---POST request .
+
+app.post("/listings/:id/update",(req,res)=>{
+    let {id}=req.params;
+    let {title_,descrip_,url_,price_,location_,country_}=req.body;
+    let data_=new User({title:title_,description:descrip_,image:{filename:"listingimage",url:url_},price:price_,location:location_,country:country_});
+    data_.save();
+    res.redirect("/listings/:id");
+});

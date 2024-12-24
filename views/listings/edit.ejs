@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+</head>
+<body>
+    <h2>Edit your Information</h2>
+    <form action="/listings/:id/update" method="POST">
+        Title : <input type="text" name="title_" value="<%=data.title%>"> <br>
+        Description : <textarea name="descrip_" cols="30" rows="10"><%= data.description %></textarea><br>
+        Image_URL : <input type="text" name="url_" value="<%=data.image.url%>"><br>
+        Price : <input type="text"  name="price_" value="<%=data.price%>"> <br>
+        Location : <input type="text" name="location_" value="<%=data.location%>"> <br>
+        Country : <input type="text" name="country_" value="<%=data.country%>"> <br><br>
+        <button>ADD</button>
+
+    </form>
+</body>
+</html>
