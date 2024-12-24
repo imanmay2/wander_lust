@@ -23,7 +23,7 @@ app.listen(port,(req,res)=>{
 });
 
 
-app.get("/",(req,res)=>{
+app.get("/",async (req,res)=>{
     const user1=new User({
         title:"Villa",
         description:"flat",
@@ -31,5 +31,6 @@ app.get("/",(req,res)=>{
         location:"Bangalore",
         country:"India"
     })
-    user1.save();
+    await user1.save();
+    res.send("Data added to the database.");
 })
