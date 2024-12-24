@@ -7,11 +7,11 @@
 </head>
 <body>
     <h2>ADD NEW Information</h2>
-    <form action="/listings/addListings/post" method="POST">
+    <form action="/listings/addListings" method="POST">
         Title : <input type="text" name="title_"> <br>
         Description : <textarea name="descrip_" cols="30" rows="10"></textarea><br>
         Image_URL : <input type="text" name="url_"><br>
-        Price : <input type="text"  name="price_"> <br>
+        Price : <input type="number"  name="price_"> <br>
         Location : <input type="text" name="location_"> <br>
         Country : <input type="text" name="country_"> <br><br>
         <button>ADD</button>

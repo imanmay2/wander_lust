@@ -52,32 +52,32 @@ app.get("/listings/:id",async(req,res)=>{
 
 
 // Adding the information.
-app.get("/listings/add?",(req,res)=>{
+app.get("/listings/add",(req,res)=>{
     res.render("listings/edit.ejs");
 });
 
 
 
-//ADD Route.
-// app.post("/listings/addListings/post",async(req,res)=>{
-//     // let {id}=req.params;
-//     // console.log(req.body);
-//     let {title_,descrip_,url_,price_,location_,country_}=req.body;
-//     let data_=new User({
-//         title:title_,
-//         description:descrip_,
-//         image:{
-//             filename:"imagefile",
-//             url:url_
-//         },
-//         price:price_,
-//         location:location_,
-//         country:country_
-//     });
-//     await data_.save();
-//     console.log("Updated.");
-//     res.redirect("/listings");
-// });
+// ADD Route.
+app.post("/listings/addListings",async(req,res)=>{
+    // let {id}=req.params;
+    // console.log(req.body);
+    let {title_,descrip_,url_,price_,location_,country_}=req.body;
+    let data_=new User({
+        title:title_,
+        description:descrip_,
+        image:{
+            filename:"imagefile",
+            url:url_
+        },
+        price:price_,
+        location:location_,
+        country:country_
+    });
+    await data_.save();
+    console.log("Updated.");
+    res.redirect("/listings");
+});
 
 
 
