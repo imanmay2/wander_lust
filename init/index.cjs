@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 let userSchema=require("../models/listings.cjs");
 const User=mongoose.model("listing",userSchema);
-const data=require(".data.cjs");
+const initialize_data=require("./data.cjs");
 
 
 async function main(){
@@ -9,8 +9,12 @@ async function main(){
 }
 
 
-main().then((req,res)=>{
-    User.listings.deleteMany({}).then((res_)=>{
+main().then(async(req,res)=>{
+    await User.deleteMany({}).then((res_)=>{
         console.log(res_);
+        console.log("Data is deleted.");
+    });
+    await User.insertMany(initialize_data.data).then((res_)=>{
+        console.log("Data was added.");
     })
 })

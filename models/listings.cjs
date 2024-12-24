@@ -10,8 +10,8 @@ const userSchema=new mongoose.Schema({
         required:true
     },
     image:{
-        type:String,
-        default:"https://unsplash.com/photos/a-body-of-water-with-clouds-above-it-RK4lzmfrGak"
+        filename: String,
+        url:String
     },
     price:{
         type:Number,
