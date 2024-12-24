@@ -24,10 +24,17 @@ app.listen(port,(req,res)=>{
 
 
 //Showing the listings in the home page.
-app.get("/listings",(req,res)=>{
-    const data=User.find().then((res_)=>{
+app.get("/listings",async(req,res)=>{
+    const data=await User.find().then((res_)=>{
         res.render("listings/home.ejs",{data:res_});
     }) 
 });
 
 
+// Showing the information of a particular Listing.
+app.get("/listings/:id",(req,res)=>{
+    let {id}=req.params;
+    User.findById(id).then((res_)=>{
+        res.render("listings/info.ejs",{data:res_})
+    })
+});

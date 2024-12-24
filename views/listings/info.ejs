@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+</head>
+<body>
+    <h2>Here is the Information.</h2>
+    <ul>
+        <li><%= data.title %></li>
+        <br>
+        <li><%= data.description %></li>
+        <br>
+        <li><%= data.image.url %></li>
+        <br>
+        <li><%= data.price %></li>
+        <br>
+        <li><%= data.location %></li>
+        <br>
+        <li><%= data.country %></li>
+    </ul>
+    <form action="/listings/<%=data._id%>/edit" method="GET">
+        <button>Edit</button>
+    </form> &nbsp;&nbsp;&nbsp;&nbsp;
+    <form method="POST" action="/listings/<%=data._id%>/delete"><button>Delete</button>
+    </form>
+</body>
+</html>
