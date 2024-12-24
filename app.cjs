@@ -39,6 +39,11 @@ app.get("/listings",async(req,res)=>{
     }) 
 });
 
+// Adding the information.
+app.get("/listings/add",(req,res)=>{
+    res.render("listings/add.ejs");
+});
+
 
 
 // Showing the information of a particular Listing.
@@ -51,15 +56,8 @@ app.get("/listings/:id",async(req,res)=>{
 
 
 
-// Adding the information.
-app.get("/listings/add",(req,res)=>{
-    res.render("listings/edit.ejs");
-});
-
-
-
 // ADD Route.
-app.post("/listings/addListings",async(req,res)=>{
+app.post("/listings/addListings/add",async(req,res)=>{
     // let {id}=req.params;
     // console.log(req.body);
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
@@ -92,6 +90,7 @@ app.get("/listings/:id/edit",async(req,res)=>{
 //Updation in the databse.
 app.post("/listings/:id/update",async(req,res)=>{
     let {id}=req.params;
+    let {title_,descrip_,url_,price_,location_,country_}=req.body;
     await User.findByIdAndUpdate(id,{
         title:title_,
         description:descrip_,
@@ -106,7 +105,7 @@ app.post("/listings/:id/update",async(req,res)=>{
 
     }).then((res_)=>{
         console.log("UPDATION SUCCESSFUL.");
-        res.redirect(`/listings/${id}`);
+        res.redirect(`/listings`);
     });
 })
 
