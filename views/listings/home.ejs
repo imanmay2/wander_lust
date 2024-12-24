@@ -8,6 +8,9 @@
 <body>
     <h1><u>Here is your Listings</u></h1>
     <br>
+    <form action="/listings/add" method="GET">
+    <button>ADD NEW</button></form>
+    <br>
     <ul>
     <% for(let i of data){ %>
         <li><a href="/listings/<%=i._id %>"><%=i.title%></a></li>

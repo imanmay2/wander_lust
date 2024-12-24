@@ -2,13 +2,20 @@ let express=require("express");
 const mongoose=require("mongoose");
 let userSchema=require("./models/listings.cjs");
 let app=express();
+const path=require("path");
 const port=8080;
 const User=mongoose.model("listing",userSchema);
+app.set("view engine","ejs");
+app.set("views",path.join(__dirname,"/views"));
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+
 
 
 async function main(){
     await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
 }
+
 
 
 main().then(()=>{
@@ -18,9 +25,11 @@ main().then(()=>{
 })
 
 
+
 app.listen(port,(req,res)=>{
     console.log("Server is listening to : ",port);
 });
+
 
 
 //Showing the listings in the home page.
@@ -31,35 +40,75 @@ app.get("/listings",async(req,res)=>{
 });
 
 
+
 // Showing the information of a particular Listing.
-app.get("/listings/:id",(req,res)=>{
+app.get("/listings/:id",async(req,res)=>{
     let {id}=req.params;
-    User.findById(id).then((res_)=>{
+    await User.findById(id).then((res_)=>{
         res.render("listings/info.ejs",{data:res_})
     })
 });
 
 
 
-// Editing the information.
-app.get("/listings/:id/edit",(req,res)=>{
+// Adding the information.
+app.get("/listings/add?",(req,res)=>{
+    res.render("listings/edit.ejs");
+});
+
+
+
+//ADD Route.
+// app.post("/listings/addListings/post",async(req,res)=>{
+//     // let {id}=req.params;
+//     // console.log(req.body);
+//     let {title_,descrip_,url_,price_,location_,country_}=req.body;
+//     let data_=new User({
+//         title:title_,
+//         description:descrip_,
+//         image:{
+//             filename:"imagefile",
+//             url:url_
+//         },
+//         price:price_,
+//         location:location_,
+//         country:country_
+//     });
+//     await data_.save();
+//     console.log("Updated.");
+//     res.redirect("/listings");
+// });
+
+
+
+// Edit information.
+app.get("/listings/:id/edit",async(req,res)=>{
     let {id}=req.params;
-    User.findById(id).then((res_)=>{
+    await User.findById(id).then((res_)=>{
         res.render("listings/edit.ejs",{data:res_});
     })
 });
 
-
-
-// UPDATE route---POST request.
-app.post("/listings/:id/update",(req,res)=>{
+//Updation in the databse.
+app.post("/listings/:id/update",async(req,res)=>{
     let {id}=req.params;
-    let {title_,descrip_,url_,price_,location_,country_}=req.body;
-    let data_=new User({title:title_,description:descrip_,image:{filename:"listingimage",url:url_},price:price_,location:location_,country:country_});
-    data_.save();
-    res.redirect(`/listings/${id}`);
-});
+    await User.findByIdAndUpdate(id,{
+        title:title_,
+        description:descrip_,
+        image:{
+            filename:"imagefile",
+            url:url_,
 
+        },
+        price:price_,
+        location:location_,
+        country:country_
+
+    }).then((res_)=>{
+        console.log("UPDATION SUCCESSFUL.");
+        res.redirect(`/listings/${id}`);
+    });
+})
 
 // Deleting the listings.
 app.post("/listings/:id/delete",(req,res)=>{
