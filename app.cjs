@@ -23,14 +23,11 @@ app.listen(port,(req,res)=>{
 });
 
 
-app.get("/",async (req,res)=>{
-    const user1=new User({
-        title:"Villa",
-        description:"flat",
-        price:12000000,
-        location:"Bangalore",
-        country:"India"
-    })
-    await user1.save();
-    res.send("Data added to the database.");
-})
+//Showing the listings in the home page.
+app.get("/listings",(req,res)=>{
+    const data=User.find().then((res_)=>{
+        res.render("listings/home.ejs",{data:res_});
+    }) 
+});
+
+
