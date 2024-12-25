@@ -11,11 +11,7 @@ app.set("views",path.join(__dirname,"/views"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
-
-
 app.engine("ejs",ejsMate);
-
-
 async function main(){
     await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
 }
