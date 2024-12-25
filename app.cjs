@@ -3,13 +3,16 @@ const mongoose=require("mongoose");
 let userSchema=require("./models/listings.cjs");
 let app=express();
 const path=require("path");
+const ejsMate=require("ejs-mate");
 const port=8080;
 const User=mongoose.model("listing",userSchema);
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use(express.static(path.join(__dirname,"public")))
 
+app.engine("ejs",ejsMate);
 
 
 async function main(){
@@ -30,7 +33,9 @@ app.listen(port,(req,res)=>{
     console.log("Server is listening to : ",port);
 });
 
-
+app.get("/",(req,res)=>{
+    res.send("This is the root site.");
+})
 
 //Showing the listings in the home page.
 app.get("/listings",async(req,res)=>{
