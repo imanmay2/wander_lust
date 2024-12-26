@@ -93,6 +93,8 @@ app.get("/listings/:id/edit",async(req,res)=>{
     })
 });
 
+
+
 //Updation in the databse.
 app.post("/listings/:id/update",async(req,res)=>{
     let {id}=req.params;
@@ -114,6 +116,7 @@ app.post("/listings/:id/update",async(req,res)=>{
     });
 })
 
+
 // Deleting the listings.
 app.post("/listings/:id/delete",(req,res)=>{
     let {id}=req.params;
@@ -122,3 +125,4 @@ app.post("/listings/:id/delete",(req,res)=>{
         res.redirect("/listings");
     })
 });
+

@@ -35,22 +35,38 @@ body{
     display: inline-block;
 }
 
-a{
-    color: black;
+.nav-link{
     text-decoration: none;
 }
 
 
 .footer{
-    margin-top: 49px;
-    background-color: #bbc0c7;
+    margin-top: 53px;
+    background-color: #d9dfe6;
     height: 116px;
-    width: 1138px;
+    width: 100%;
     text-align: center;
     font-style: none;
     font-size: small;
     font-weight: 900;
-    margin-left: -8px;
+
     margin-bottom:-8px;
 }
 
+
+.card_{
+    height:250px;
+}
+
+.card{
+    margin-bottom: 20px;
+}
+
+._decorate{
+    text-decoration: none;
+}
+
+.card:hover{
+    opacity: 0.7;
+    background-color: white;
+}
