@@ -1,0 +1,33 @@
+body{
+    font-style: oblique;
+    color: black;
+    text-decoration: none;
+}
+
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+
+#logo{
+    margin-top:10px;
+    color:red;
+}
+
+.navbar{
+    position:fixed;
+    background-color: white;
+}
+
+.nav_items{
+    display: inline-block;
+}
+
+  
