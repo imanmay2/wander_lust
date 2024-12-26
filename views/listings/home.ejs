@@ -1,9 +1,5 @@
 <% layout("/layouts/boilerplate.ejs") -%>
 <body>
-    <br>
-    <!-- <form action="/listings/add" method="GET">
-    <button>ADD NEW</button></form> -->
-    <br>
     <ul>
     <% for(let i of data){ %>
         <li><a href="/listings/<%=i._id %>"><%=i.title%></a></li>
