@@ -1,6 +1,5 @@
 body{
     font-style: oblique;
-    
 }
 
 .container {
@@ -24,10 +23,12 @@ body{
 
 .navbar{
     height: 50px;
+    width: 100%;
     position:fixed;
-    background-color: white;
+    background-color: #edece8;
     margin-top: -10px;
-    
+    display:inline;
+    margin-left: -8px;
 }
 
 .nav_items{
@@ -39,4 +40,17 @@ a{
     text-decoration: none;
 }
 
-  
+
+.footer{
+    margin-top: 49px;
+    background-color: #bbc0c7;
+    height: 116px;
+    width: 1138px;
+    text-align: center;
+    font-style: none;
+    font-size: small;
+    font-weight: 900;
+    margin-left: -8px;
+    margin-bottom:-8px;
+}
+
