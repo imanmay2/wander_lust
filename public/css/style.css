@@ -17,9 +17,12 @@ body{
 
 
 #logo{
-    margin-top:10px;
+    margin-top:31px;
     color:red;
+    margin-left:10px;
 }
+
+
 
 .navbar{
     height: 50px;
@@ -31,9 +34,13 @@ body{
     margin-left: -8px;
 }
 
+
+
 .nav_items{
     display: inline-block;
 }
+
+
 
 .nav-link{
     text-decoration: none;
@@ -55,11 +62,13 @@ body{
 
 
 .card_{
-    height:250px;
+    height:271px;
 }
 
 .card{
     margin-bottom: 20px;
+    width:309px !important;
+    height:362px !important;
 }
 
 ._decorate{
@@ -69,4 +78,34 @@ body{
 .card:hover{
     opacity: 0.7;
     background-color: white;
+}
+
+#navbarNav{
+    margin-top: 24px;
+    margin-bottom: -3px;
+    height:20px !important;
+}
+
+.row{
+    margin-left:-38px !important;
+    margin-right: -51px !important;
+    margin-top: 40px !important;
+}
+
+
+
+.inline_block_{
+    display:inline-block;
+}
+
+
+.add_heading{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.home_head{
+    margin-bottom:-20px !important;
+    margin-top: 20px !important;
+    margin-left : -23px ;
 }

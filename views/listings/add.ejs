@@ -1,12 +1,34 @@
 <% layout("/layouts/boilerplate.ejs") -%>
 <body>
-    <h2>ADD NEW Information</h2>
+    <h2 class="add_heading">CREATE NEW LISTING</h2>
     <form action="/listings/addListings/add" method="POST">
-        Title : <input type="text" name="title_"> <br>
-        Description : <textarea name="descrip_" cols="30" rows="10"></textarea><br>
-        Image_URL : <input type="text" name="url_"><br>
-        Price : <input type="number"  name="price_"> <br>
-        Location : <input type="text" name="location_"> <br>
-        Country : <input type="text" name="country_"> <br><br>
-        <button>ADD</button>
-    </form>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter a catchy Title">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Image Link</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter the image URL">
+          </div>
+          <div>
+            <div class="inline_block_">
+                <label for="exampleFormControlInput1" class="form-label">Price</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Price">
+              </div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              <div class="inline_block_">
+                <label for="exampleFormControlInput1" class="form-label">Country</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="India">
+              </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Location</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jaipur,Rajasthan">
+          </div>
+          <br>
+          <button type="button" class="btn btn-danger">ADD</button>
+        </form>
+</body>
