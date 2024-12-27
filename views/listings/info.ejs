@@ -1,26 +1,25 @@
 <% layout("/layouts/boilerplate.ejs") -%>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WanderLust</title>
-</head>
-<body>
-    <h2>Here is the Information.</h2>
-    <ul>
-        <li><%= data.title %></li>
-        <br>
-        <li><%= data.description %></li>
-        <br>
-        <li><%= data.image.url %></li>
-        <br>
-        <li><%= data.price %></li>
-        <br>
-        <li><%= data.location %></li>
-        <br>
-        <li><%= data.country %></li>
-    </ul>
-    <form action="/listings/<%=data._id%>/edit" method="GET">
-     <button>Edit</button>
-    </form> &nbsp;&nbsp;&nbsp;&nbsp;
-    <form method="POST" action="/listings/<%=data._id%>/delete"><button>Delete</button>
-    </form>
+    <body>
+        <h2 class="listing_details" align="center">Listings Details</h2>
+        <div class="card card_info" style="width: 400px !important; ">
+            <img src="<%= data.image.url %>" class="card-img-top img-info" alt="listings_image">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%= data.title %>
+                </h5>
+                <p class="card-text">
+                    <%= data.description %> <br>
+                        Price- <b>&#8377;<%= data.price %> per night</b> <br>
+                           Location- <b><%= data.location %></b> <br>
+                               Country- <b><%= data.country %></b>
+                </p>
+                <div>
+                    <a href="/listings/<%=data._id%>/edit" class="btn btn-danger">Edit</a></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form method="POST" action="/listings/<%=data._id%>/delete">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>

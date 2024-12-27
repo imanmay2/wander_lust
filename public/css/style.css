@@ -2,9 +2,11 @@ body{
     font-style: oblique;
 }
 
+
 .container {
     padding-top: 50px;
 }
+
 
 .material-symbols-outlined {
   font-variation-settings:
@@ -21,7 +23,6 @@ body{
     color:red;
     margin-left:10px;
 }
-
 
 
 .navbar{
@@ -48,7 +49,7 @@ body{
 
 
 .footer{
-    margin-top: 53px;
+    margin-top: 327px;
     background-color: #d9dfe6;
     height: 116px;
     width: 100%;
@@ -56,7 +57,6 @@ body{
     font-style: none;
     font-size: small;
     font-weight: 900;
-
     margin-bottom:-8px;
 }
 
@@ -75,7 +75,7 @@ body{
     text-decoration: none;
 }
 
-.card:hover{
+.card_hover:hover{
     opacity: 0.7;
     background-color: white;
 }
@@ -104,8 +104,33 @@ body{
     margin-bottom: 20px;
 }
 
+
 .home_head{
     margin-bottom:-20px !important;
     margin-top: 20px !important;
     margin-left : -23px ;
+}
+
+
+
+.listings_details{
+    margin-left:20px;
+
+}
+
+
+.card_info{
+    margin-left:350px;
+    border: none !important;
+}
+
+
+.img-info{
+    height:400px;
+    width:600px !important;
+}
+
+.img-home{
+    height: 250px;
+    width: 307px !important;
 }
