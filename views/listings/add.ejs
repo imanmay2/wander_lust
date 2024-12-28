@@ -4,31 +4,31 @@
     <form action="/listings/addListings/add" method="POST">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter a catchy Title">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="title_" placeholder="Enter a catchy Title">
           </div>
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="descrip_"  rows="3"></textarea>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Image Link</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter the image URL">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="url_"  placeholder="Enter the image URL">
           </div>
           <div>
             <div class="inline_block_">
                 <label for="exampleFormControlInput1" class="form-label">Price</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Price">
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="price_"  placeholder="Price">
               </div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <div class="inline_block_">
                 <label for="exampleFormControlInput1" class="form-label">Country</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="India">
+                <input type="text" class="form-control" id="exampleFormControlInput1"  name="country_"  placeholder="India">
               </div>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Location</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Jaipur,Rajasthan">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="location_"  placeholder="Jaipur,Rajasthan">
           </div>
           <br>
-          <button class="btn btn-danger">ADD</button>
+          <button class="btn btn-danger" style="margin-bottom: 40px;">ADD</button>
         </form>
 </body>

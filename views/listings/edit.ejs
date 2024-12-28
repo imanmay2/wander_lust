@@ -2,34 +2,34 @@
 
 <body>
 <h2 class="add_heading">EDIT YOUR LISTING</h2>
-    <form action="/listings/<%= data._id %>/update" method="POST">
+<form action="/listings/<%= data._id %>/update" method="POST">
         <div class="mb-4">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<%=data.title%>" placeholder="Enter a catchy Title">
+            <input type="text" class="form-control" id="exampleFormControlInput1" value="<%=data.title%>" name="title_"  placeholder="Enter a catchy Title">
           </div>
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"><%=data.description%></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="descrip_"  rows="3"><%=data.description%></textarea>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Image Link</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<%=data.image.url%>">
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="url_"  value="<%=data.image.url%>">
           </div>
           <div>
             <div class="inline_block_">
                 <label for="exampleFormControlInput1" class="form-label">Price</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="<%=data.price%>">
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="price_"  value="<%=data.price%>"> 
               </div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <div class="inline_block_">
                 <label for="exampleFormControlInput1" class="form-label">Country</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="<%=data.country%>">
+                <input type="text" class="form-control" id="exampleFormControlInput1"name="country_"  value="<%=data.country%>">
               </div>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Location</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="<%=data.location%>">
+            <input type="text" class="form-control" id="exampleFormControlInput1"name="location_"  value="<%=data.location%>">
           </div>
-          <br>
+          <br><form action="/listings/<%= data._id %>/update" method="POST">
           <button class="btn btn-danger">EDIT</button>
         </form>
 </body>

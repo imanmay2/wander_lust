@@ -65,7 +65,7 @@ app.get("/listings/:id",async(req,res)=>{
 // ADD Route.
 app.post("/listings/addListings/add",async(req,res)=>{
     // let {id}=req.params;
-    // console.log(req.body);
+    console.log(req.body);
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
     let data_=new User({
         title:title_,
@@ -99,6 +99,7 @@ app.get("/listings/:id/edit",async(req,res)=>{
 app.post("/listings/:id/update",async(req,res)=>{
     let {id}=req.params;
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
+    console.log(req.body);
     await User.findByIdAndUpdate(id,{
         title:title_,
         description:descrip_,
@@ -111,6 +112,7 @@ app.post("/listings/:id/update",async(req,res)=>{
         country:country_
 
     }).then((res_)=>{
+        // console.log(res);
         console.log("UPDATION SUCCESSFUL.");
         res.redirect(`/listings`);
     });
@@ -121,7 +123,7 @@ app.post("/listings/:id/update",async(req,res)=>{
 app.post("/listings/:id/delete",(req,res)=>{
     let {id}=req.params;
     User.findByIdAndDelete(id).then((res_)=>{
-        console.log(res_);
+        console.log("Data Deleted.");
         res.redirect("/listings");
     })
 });
