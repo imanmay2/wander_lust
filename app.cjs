@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
 const wrapAsync=require("./utils/wrapAsync.cjs");
 const ExpressError=require("./utils/ExpressError.cjs");
-
+const schema=require("./schema.cjs");
 
 app.engine("ejs",ejsMate);
 
@@ -66,9 +66,10 @@ app.get("/listings/:id",async(req,res)=>{
 
 // ADD Route.
 app.post("/listings/addListings/add",wrapAsync(async(req,res,next)=>{
-    // let {id}=req.params;
-    console.log(req.body);
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
+    if((!req.body)){
+        throw new ExpressError(400,"Content is Empty");
+    }
     let data_=new User({
     title:title_,
     description:descrip_,
@@ -97,11 +98,16 @@ app.get("/listings/:id/edit",async(req,res)=>{
 
 
 
+
 //Updation in the databse.
 app.post("/listings/:id/update",wrapAsync(async(req,res,next)=>{
         let {id}=req.params;
-        let {title_,descrip_,url_,price_,location_,country_}=req.body;
-        console.log(req.body);
+        // let {title_,descrip_,url_,price_,location_,country_}=req.body;
+        let result=schema.validate(req.body);
+        console.log(result);
+        if(result.error){
+            throw new ExpressError(500,result.error);
+        }
         await User.findByIdAndUpdate(id,{
         title:title_,
         description:descrip_,
@@ -121,14 +127,15 @@ app.post("/listings/:id/update",wrapAsync(async(req,res,next)=>{
 }));
 
 
+
 // Deleting the listings.
-app.post("/listings/:id/delete",(req,res)=>{
+app.post("/listings/:id/delete",wrapAsync((req,res)=>{
     let {id}=req.params;
     User.findByIdAndDelete(id).then((res_)=>{
         console.log("Data Deleted.");
         res.redirect("/listings");
     })
-});
+}));
 
 
 app.all("*",(req,res)=>{
@@ -139,5 +146,5 @@ app.all("*",(req,res)=>{
 
 app.use((err,req,res,next)=>{
     let {status=500,message="Something went wrong!"}=err;
-    res.status(status).send(message);
+    res.status(status).render("error.ejs",{err});
 });
