@@ -11,6 +11,8 @@ app.set("views",path.join(__dirname,"/views"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
+const wrapAsync=require("./utils/wrapAsync.cjs");
+const ExpressError=require("./utils/ExpressError.cjs");
 
 
 app.engine("ejs",ejsMate);
@@ -63,16 +65,16 @@ app.get("/listings/:id",async(req,res)=>{
 
 
 // ADD Route.
-app.post("/listings/addListings/add",async(req,res)=>{
+app.post("/listings/addListings/add",wrapAsync(async(req,res,next)=>{
     // let {id}=req.params;
     console.log(req.body);
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
     let data_=new User({
-        title:title_,
-        description:descrip_,
-        image:{
-            filename:"imagefile",
-            url:url_
+    title:title_,
+    description:descrip_,
+    image:{
+        filename:"imagefile",
+        url:url_
         },
         price:price_,
         location:location_,
@@ -81,7 +83,7 @@ app.post("/listings/addListings/add",async(req,res)=>{
     await data_.save();
     console.log("Updated.");
     res.redirect("/listings");
-});
+}));
 
 
 
@@ -96,11 +98,11 @@ app.get("/listings/:id/edit",async(req,res)=>{
 
 
 //Updation in the databse.
-app.post("/listings/:id/update",async(req,res)=>{
-    let {id}=req.params;
-    let {title_,descrip_,url_,price_,location_,country_}=req.body;
-    console.log(req.body);
-    await User.findByIdAndUpdate(id,{
+app.post("/listings/:id/update",wrapAsync(async(req,res,next)=>{
+        let {id}=req.params;
+        let {title_,descrip_,url_,price_,location_,country_}=req.body;
+        console.log(req.body);
+        await User.findByIdAndUpdate(id,{
         title:title_,
         description:descrip_,
         image:{
@@ -116,7 +118,7 @@ app.post("/listings/:id/update",async(req,res)=>{
         console.log("UPDATION SUCCESSFUL.");
         res.redirect(`/listings`);
     });
-})
+}));
 
 
 // Deleting the listings.
@@ -128,3 +130,14 @@ app.post("/listings/:id/delete",(req,res)=>{
     })
 });
 
+
+app.all("*",(req,res)=>{
+    throw new ExpressError(404,"Page not found!");
+});
+
+
+
+app.use((err,req,res,next)=>{
+    let {status=500,message="Something went wrong!"}=err;
+    res.status(status).send(message);
+});
