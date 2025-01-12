@@ -15,6 +15,7 @@ const wrapAsync=require("./utils/wrapAsync.cjs");
 const ExpressError=require("./utils/ExpressError.cjs");
 const schema=require("./schema.cjs");
 
+
 app.engine("ejs",ejsMate);
 
 
@@ -136,6 +137,7 @@ app.post("/listings/:id/delete",wrapAsync((req,res)=>{
         res.redirect("/listings");
     })
 }));
+
 
 
 app.all("*",(req,res)=>{
