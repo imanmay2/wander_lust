@@ -15,6 +15,7 @@ const wrapAsync=require("./utils/wrapAsync.cjs");
 const ExpressError=require("./utils/ExpressError.cjs");
 const schema=require("./schema.cjs");
 
+const reviewSchema=require("./models/review.cjs");
 
 app.engine("ejs",ejsMate);
 
@@ -67,27 +68,6 @@ app.get("/listings/:id",async(req,res)=>{
 
 
 // ADD Route.
-// app.post("/listings/addListings/add",wrapAsync(async(req,res,next)=>{
-//     let {title_,descrip_,url_,price_,location_,country_}=req.body;
-//     if((!req.body)){
-//         throw new ExpressError(400,"Content is Empty");
-//     }
-//     let data_=new User({
-//     title:title_,
-//     description:descrip_,
-//     image:{
-//         filename:"imagefile",
-//         url:url_
-//         },
-//         price:price_,
-//         location:location_,
-//         country:country_
-//     });
-//     await data_.save();
-//     console.log("Updated.");
-//     res.redirect("/listings");
-// }));
-
 app.post("/listings/addListings/add",async(req,res,next)=>{
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
     if((!req.body)){
@@ -108,6 +88,7 @@ app.post("/listings/addListings/add",async(req,res,next)=>{
     console.log("Updated.");
     res.redirect("/listings");
 });
+
 
 
 // Edit information.
@@ -162,9 +143,7 @@ app.post("/listings/:id/delete",(req,res)=>{
 
 
 
-app.all("*",(req,res)=>{
-    throw new ExpressError(404,"Page not found!");
-});
+
 
 
 
@@ -172,3 +151,34 @@ app.use((err,req,res,next)=>{
     let {status=500,message="Something Went Wrong!"}=err;
     res.status(status).render("error.ejs",{err});
 });
+
+
+//Creating the Review Model.
+let review=mongoose.model("review",reviewSchema);
+app.post("/listings/:id/reviews",async(req,res)=>{
+    let {id}=req.params;
+    let listings=await User.findById(id);
+    
+    let {rating_,comment_}=req.body;
+    let review_=new review({
+        comment:comment_,
+        rating:rating_
+    });
+    
+    listings.reviews.push=review_;
+    await review_.save();
+    console.log("Data Saved");
+    await listings.save();  
+    // res.send("Data has been saved successfully.");
+    res.redirect(`/listings/${id}`);
+    
+
+});
+
+
+
+app.all("*",(req,res)=>{
+    throw new ExpressError(404,"Page not found!");
+});
+
+

@@ -5,6 +5,8 @@ body{
 
 .container {
     padding-top: 50px;
+    max-height:765px;
+
 }
 
 
@@ -122,7 +124,7 @@ body{
 .card_info{
     margin-left:350px;
     border: none !important;
-    height: 800px !important;
+    height: 700px !important;
 }
 
 
@@ -139,4 +141,20 @@ body{
 .icons_footer{
     margin-bottom: -10px !important;
     
+}
+
+.card-body{
+    max-height: 500px;
+}
+
+.review{
+    display: inline-block;
+    /* text-align: center; */
+}
+
+#review_card{
+    border:none;
+    text-align: left;
+    max-width:300px;
+    max-height:254px;
 }

@@ -1,12 +1,12 @@
 <% layout("/layouts/boilerplate.ejs") -%>
     <body>
-        <h2 class="listing_details" align="center">Listings Details</h2>
+        <h2 class="listing_details" align="center"><%= data.title %></h2>
         <div class="card card_info" style="width: 400px !important; ">
             <img src="<%= data.image.url %>" class="card-img-top img-info" alt="listings_image">
             <div class="card-body">
-                <h5 class="card-title">
-                    <%= data.title %>
-                </h5>
+                <!-- <h5 class="card-title">
+                    
+                </h5> -->
                 <p class="card-text">
                     <%= data.description %> <br>
                         Price- <b>&#8377;<%= data.price %> per night</b> <br>
@@ -17,9 +17,21 @@
                     <a href="/listings/<%=data._id%>/edit" class="btn btn-danger">Edit</a></div>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <form method="POST" action="/listings/<%=data._id%>/delete">
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-dark">Delete</button>
                     </form>
                 </div>
             </div>
         </div>
+         
+        <center><form action="/listings/<%=data._id%>/reviews" method="POST">
+        <hr width="50%">
+        <div class="card" id="review_card">
+        <h2>Leave a Review</h2><br>
+        <label for="rating">Rating</label>
+        <input type="range" id="rating" min="1" max="5" name="rating_">
+        <br>
+        <label for="comment">Comments</label>
+        <textarea name="comment_" id="comment"></textarea></div>
+    <button type="submit" class="btn btn-danger">Submit</button> <br> <br></form></center>
+
     </body>
