@@ -166,23 +166,20 @@ app.post("/listings/:id/reviews",async(req,res)=>{
         rating:rating_
     });
     
-    listings.reviews.push=review_;
-    console.log("_______________");
-    console.log(await review_.save());
-    // console.log("Data Saved");
-    console.log("_______________");
-    console.log(await listings.save());  
-    // res.send("Data has been saved successfully.");
 
+    listings.reviews.push(review_);
+    console.log("_______________");
+    if(await review_.save()){
+        console.log("Data saved");
+    }
+    console.log("_______________");
+    if(await listings.save()){
+        console.log("All done!");
+    }
     res.redirect(`/listings/${listings._id}`);
-    
-
 });
-
 
 
 app.all("*",(req,res)=>{
     throw new ExpressError(404,"Page not found!");
 });
-
-
