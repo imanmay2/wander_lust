@@ -59,6 +59,7 @@ app.get("/listings/add",(req,res)=>{
 app.get("/listings/:id",async(req,res)=>{
     let {id}=req.params;
     await User.findById(id).then((res_)=>{
+        console.log(res_);
         res.render("listings/info.ejs",{data:res_})
     })
 });
@@ -66,7 +67,28 @@ app.get("/listings/:id",async(req,res)=>{
 
 
 // ADD Route.
-app.post("/listings/addListings/add",wrapAsync(async(req,res,next)=>{
+// app.post("/listings/addListings/add",wrapAsync(async(req,res,next)=>{
+//     let {title_,descrip_,url_,price_,location_,country_}=req.body;
+//     if((!req.body)){
+//         throw new ExpressError(400,"Content is Empty");
+//     }
+//     let data_=new User({
+//     title:title_,
+//     description:descrip_,
+//     image:{
+//         filename:"imagefile",
+//         url:url_
+//         },
+//         price:price_,
+//         location:location_,
+//         country:country_
+//     });
+//     await data_.save();
+//     console.log("Updated.");
+//     res.redirect("/listings");
+// }));
+
+app.post("/listings/addListings/add",async(req,res,next)=>{
     let {title_,descrip_,url_,price_,location_,country_}=req.body;
     if((!req.body)){
         throw new ExpressError(400,"Content is Empty");
@@ -85,8 +107,7 @@ app.post("/listings/addListings/add",wrapAsync(async(req,res,next)=>{
     await data_.save();
     console.log("Updated.");
     res.redirect("/listings");
-}));
-
+});
 
 
 // Edit information.
@@ -101,9 +122,9 @@ app.get("/listings/:id/edit",async(req,res)=>{
 
 
 //Updation in the databse.
-app.post("/listings/:id/update",wrapAsync(async(req,res,next)=>{
+app.post("/listings/:id/update",async(req,res,next)=>{
         let {id}=req.params;
-        // let {title_,descrip_,url_,price_,location_,country_}=req.body;
+        let {title_,descrip_,url_,price_,location_,country_}=req.body;
         let result=schema.validate(req.body);
         console.log(result);
         if(result.error){
@@ -125,18 +146,19 @@ app.post("/listings/:id/update",wrapAsync(async(req,res,next)=>{
         console.log("UPDATION SUCCESSFUL.");
         res.redirect(`/listings`);
     });
-}));
+});
 
 
 
 // Deleting the listings.
-app.post("/listings/:id/delete",wrapAsync((req,res)=>{
+app.post("/listings/:id/delete",(req,res)=>{
     let {id}=req.params;
+    // console.log(id);
     User.findByIdAndDelete(id).then((res_)=>{
         console.log("Data Deleted.");
         res.redirect("/listings");
     })
-}));
+});
 
 
 
@@ -147,6 +169,6 @@ app.all("*",(req,res)=>{
 
 
 app.use((err,req,res,next)=>{
-    let {status=500,message="Something went wrong!"}=err;
+    let {status=500,message="Something Went Wrong!"}=err;
     res.status(status).render("error.ejs",{err});
 });
