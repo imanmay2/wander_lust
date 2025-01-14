@@ -14,7 +14,6 @@ app.use(express.static(path.join(__dirname,"/public")))
 const wrapAsync=require("./utils/wrapAsync.cjs");
 const ExpressError=require("./utils/ExpressError.cjs");
 const schema=require("./schema.cjs");
-
 const reviewSchema=require("./models/review.cjs");
 
 app.engine("ejs",ejsMate);
@@ -107,7 +106,7 @@ app.post("/listings/:id/update",async(req,res,next)=>{
         let {id}=req.params;
         let {title_,descrip_,url_,price_,location_,country_}=req.body;
         let result=schema.validate(req.body);
-        console.log(result);
+        // console.log(result);
         if(result.error){
             throw new ExpressError(500,result.error);
         }
@@ -124,7 +123,7 @@ app.post("/listings/:id/update",async(req,res,next)=>{
 
     }).then((res_)=>{
         // console.log(res);
-        console.log("UPDATION SUCCESSFUL.");
+        // console.log("UPDATION SUCCESSFUL.");
         res.redirect(`/listings`);
     });
 });
@@ -157,20 +156,25 @@ app.use((err,req,res,next)=>{
 let review=mongoose.model("review",reviewSchema);
 app.post("/listings/:id/reviews",async(req,res)=>{
     let {id}=req.params;
+    console.log(id);
     let listings=await User.findById(id);
     
     let {rating_,comment_}=req.body;
+
     let review_=new review({
         comment:comment_,
         rating:rating_
     });
     
     listings.reviews.push=review_;
-    await review_.save();
-    console.log("Data Saved");
-    await listings.save();  
+    console.log("_______________");
+    console.log(await review_.save());
+    // console.log("Data Saved");
+    console.log("_______________");
+    console.log(await listings.save());  
     // res.send("Data has been saved successfully.");
-    res.redirect(`/listings/${id}`);
+
+    res.redirect(`/listings/${listings._id}`);
     
 
 });
