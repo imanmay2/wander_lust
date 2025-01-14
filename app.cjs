@@ -58,7 +58,7 @@ app.get("/listings/add",(req,res)=>{
 // Showing the information of a particular Listing.
 app.get("/listings/:id",async(req,res)=>{
     let {id}=req.params;
-    await User.findById(id).then((res_)=>{
+    await User.findById(id).populate("reviews").then((res_)=>{
         console.log(res_);
         res.render("listings/info.ejs",{data:res_})
     })
@@ -161,14 +161,10 @@ app.post("/listings/:id/reviews",async(req,res)=>{
         comment:comment_,
         rating:rating_
     });
-    
-
     listings.reviews.push(review_);
-    console.log("_______________");
     if(await review_.save()){
         console.log("Data saved");
     }
-    console.log("_______________");
     if(await listings.save()){
         console.log("All done!");
     }

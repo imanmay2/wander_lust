@@ -157,4 +157,9 @@ body{
     text-align: left;
     max-width:300px;
     max-height:254px;
+    margin-left: 440px;
+}
+
+#review_btn{
+    margin-left: 440px;
 }
