@@ -160,6 +160,27 @@ body{
     margin-left: 440px;
 }
 
-#review_btn{
+#margin_left{
     margin-left: 440px;
+}
+
+.review_section{
+    border:1px solid black;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    max-width:600px;
+    height: 150px;
+   
+}
+
+#para_{
+    max-width:600px;
+    height: 90px;
+   overflow-x: hidden;
+   overflow-y: auto;
+}
+
+.margin-top{
+    margin-top: 10px;
+    position:sticky;
 }

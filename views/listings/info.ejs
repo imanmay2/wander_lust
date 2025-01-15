@@ -28,34 +28,54 @@
         </div>
         </div>
 
-        <center> <hr width="45%"></center>
-            <form action="/listings/<%=data._id%>/reviews" method="POST" class="needs-validation" novalidate>
-               
-                <div class="card" id="review_card">
-                    <h2>Leave a Review</h2><br>
-                    <label for="rating">Rating</label>
-                    <input type="range" id="rating" min="1" max="5" name="rating_">
-                    <br>
-                    <label for="comment">Comments</label>
-                    <div>
-                        <textarea name="comment_" id="comment" cols="60px" rows="5px" required></textarea>
-                        <div class="invalid-feedback">
-                            Please provide a valid city.
-                          </div>
+        <center>
+            <hr width="45%">
+        </center>
+        <form action="/listings/<%=data._id%>/reviews" method="POST" class="needs-validation" novalidate>
+
+            <div class="card" id="review_card">
+                <h2>Leave a Review</h2><br>
+                <label for="rating">Rating</label>
+                <input type="range" id="rating" min="1" max="5" name="rating_">
+                <br>
+                <label for="comment">Comments</label>
+                <div>
+                    <textarea name="comment_" id="comment" cols="60px" rows="5px" required></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a valid Comment.
                     </div>
                 </div>
-                <br><br>
-                <button type="submit" class="btn btn-danger" id="review_btn">Submit</button> <br><br>
-            </form>
-            <% if(data.reviews.length>0){ %>
-                <hr width="40%" id="review_btn">
-            <h2  id="review_btn">All Reviews</h2>
-            <ul>
-            <% console.log(data.reviews); %>
-           <% for(let review of data.reviews){ %>
-                <li id="review_btn"><%=review.comment%>, <%=review.rating%> stars</li>
-            <% } %>
-        </ul>
-           <% } %>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-danger" id="margin_left">Submit</button> <br><br>
+        </form>
+
+
+        <!-- <div class="card">
+                <div class="card-body">
+                  
+                </div>
+              </div> -->
+
+        <% console.log(data.reviews.length); %>
             
+            <% if(data.reviews.length>0){ %>
+                <center>
+                    <hr width="45%">
+                </center>
+                <h2 id="margin_left">All Reviews</h2>
+                <% for(let review of data.reviews){ %>
+                    <form action="/listings/<%=data._id%>/reviews/<%=review._id%>" method="POST">
+                        <div class="review_section" id="margin_left">
+                            <div id="para_"><%= review.comment %> <br>
+                                <%= review.rating %> </div>
+                            
+                                    <div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
+                                            class="btn btn-dark margin-top">Delete</button></div>
+                        </div>
+                    </form>
+                    <% } %>
+                        <% } %>
+
     </body>

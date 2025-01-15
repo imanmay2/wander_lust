@@ -59,7 +59,7 @@ app.get("/listings/add",(req,res)=>{
 app.get("/listings/:id",async(req,res)=>{
     let {id}=req.params;
     await User.findById(id).populate("reviews").then((res_)=>{
-        console.log(res_);
+        // console.log(res_);
         res.render("listings/info.ejs",{data:res_})
     })
 });
@@ -84,7 +84,7 @@ app.post("/listings/addListings/add",async(req,res,next)=>{
         country:country_
     });
     await data_.save();
-    console.log("Updated.");
+    // console.log("Updated.");
     res.redirect("/listings");
 });
 
@@ -130,15 +130,7 @@ app.post("/listings/:id/update",async(req,res,next)=>{
 
 
 
-// Deleting the listings.
-app.post("/listings/:id/delete",(req,res)=>{
-    let {id}=req.params;
-    // console.log(id);
-    User.findByIdAndDelete(id).then((res_)=>{
-        console.log("Data Deleted.");
-        res.redirect("/listings");
-    })
-});
+
 
 
 
@@ -152,7 +144,7 @@ app.use((err,req,res,next)=>{
 let review=mongoose.model("review",reviewSchema);
 app.post("/listings/:id/reviews",async(req,res)=>{
     let {id}=req.params;
-    console.log(id);
+    // console.log(id);
     let listings=await User.findById(id);
     
     let {rating_,comment_}=req.body;
@@ -163,13 +155,45 @@ app.post("/listings/:id/reviews",async(req,res)=>{
     });
     listings.reviews.push(review_);
     if(await review_.save()){
-        console.log("Data saved");
+        // console.log("Data saved");
     }
     if(await listings.save()){
-        console.log("All done!");
+        // console.log("All done!");
     }
     res.redirect(`/listings/${listings._id}`);
 });
+
+
+// Deleting the listings.
+app.post("/listings/:id/delete",async(req,res)=>{
+    let {id}=req.params;
+    // console.log(id);
+    let obj_=await User.findById(id);
+    let arr=obj_.reviews;
+    for(let i of arr){
+        await review.findByIdAndDelete(i);
+    }
+
+    console.log("Data deleted from the reviews collection successfully.");
+
+    await User.findByIdAndDelete(id).then((res_)=>{
+        console.log("Data Deleted from listings.");
+        res.redirect("/listings");
+    })
+});
+
+
+
+//Delete the reviews.
+app.post("/listings/:id/reviews/:review_id",async(req,res)=>{
+    let {id,review_id}=req.params;
+    let res1=await User.findByIdAndUpdate(id,{$pull:{reviews:review_id}});
+    console.log("Data deleted from listings collection");
+    let res2=await review.findByIdAndDelete(review_id);
+    console.log("Data deleted from reviews collection");
+    res.redirect(`/listings/${id}`);
+});
+
 
 
 app.all("*",(req,res)=>{
