@@ -103,6 +103,8 @@ router.post("/:id/update",async(req,res,next)=>{
 
 
 // Deleting the listings.
+const reviewSchema=require("../models/review.cjs");
+let review=mongoose.model("review",reviewSchema);
 router.post("/:id/delete",async(req,res)=>{
     let {id}=req.params;
     // console.log(id);
