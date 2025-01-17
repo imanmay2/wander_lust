@@ -17,6 +17,7 @@ const schema=require("../schema.cjs");
 //Showing the listings in the home page.
 router.get("/",async(req,res)=>{
     const data=await User.find().then((res_)=>{
+        // res.locals.message=req.flash("success");
         res.render("listings/home.ejs",{data:res_});
     }) 
 });
@@ -58,7 +59,7 @@ router.post("/addListings/add",async(req,res,next)=>{
         country:country_
     });
     await data_.save();
-    // console.log("Updated.");
+    // req.flash("success","Listing Added Successully!");
     res.redirect("/listings");
 });
 

@@ -11,8 +11,13 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
 const ExpressError=require("./utils/ExpressError.cjs");
 
+
 const listings_=require("./routes/listing.cjs");
 const reviews_=require("./routes/reviews.cjs");
+
+// const session=require("express-sessions");
+// const flash=require("connect-flash");
+
 
 app.engine("ejs",ejsMate);
 
@@ -30,9 +35,30 @@ main().then(()=>{
 
 
 
+
 app.listen(port,(req,res)=>{
     console.log("Server is listening to : ",port);
 });
+
+// app.use(express.session(
+//     {
+//         secret:"myscretCode",
+//         resave:false,
+//         saveUninitialized:true
+//     }
+// ));
+// app.use(flash());
+
+
+app.use((req,res,next)=>{
+    res.locals.message=req.flash("success");
+    next();
+})
+
+
+
+
+
 
 app.use("/listings",listings_);
 app.use("/listings/:id/reviews",reviews_);
