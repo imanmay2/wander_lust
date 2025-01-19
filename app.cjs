@@ -15,8 +15,8 @@ const ExpressError=require("./utils/ExpressError.cjs");
 const listings_=require("./routes/listing.cjs");
 const reviews_=require("./routes/reviews.cjs");
 
-// const session=require("express-sessions");
-// const flash=require("connect-flash");
+const session=require("express-session");
+const flash=require("connect-flash");
 
 
 app.engine("ejs",ejsMate);
@@ -40,20 +40,28 @@ app.listen(port,(req,res)=>{
     console.log("Server is listening to : ",port);
 });
 
-// app.use(express.session(
-//     {
-//         secret:"myscretCode",
-//         resave:false,
-//         saveUninitialized:true
-//     }
-// ));
-// app.use(flash());
+let sessionObj={
+    secret:"mysecretCode",
+    resave:false,
+    saveUninitialized:true
+}
+app.get("/",(req,res)=>{
+    res.send("This is the root site.");
+})
+
+app.use(session(sessionObj));
+app.use(flash());
 
 
 app.use((req,res,next)=>{
     res.locals.message=req.flash("success");
     next();
-})
+});
+
+// app.use((req,res,next)=>{
+//     res.locals.message=req.flash("success");
+//     next();
+// })
 
 
 
@@ -63,9 +71,7 @@ app.use((req,res,next)=>{
 app.use("/listings",listings_);
 app.use("/listings/:id/reviews",reviews_);
 
-app.get("/",(req,res)=>{
-    res.send("This is the root site.");
-})
+
 
 app.use((err,req,res,next)=>{
     let {status=500,message="Something Went Wrong!"}=err;

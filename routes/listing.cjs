@@ -17,7 +17,7 @@ const schema=require("../schema.cjs");
 //Showing the listings in the home page.
 router.get("/",async(req,res)=>{
     const data=await User.find().then((res_)=>{
-        // res.locals.message=req.flash("success");
+        
         res.render("listings/home.ejs",{data:res_});
     }) 
 });
@@ -59,7 +59,7 @@ router.post("/addListings/add",async(req,res,next)=>{
         country:country_
     });
     await data_.save();
-    // req.flash("success","Listing Added Successully!");
+    req.flash("success","Listing Added Successully!");
     res.redirect("/listings");
 });
 
@@ -98,6 +98,7 @@ router.post("/:id/update",async(req,res,next)=>{
     }).then((res_)=>{
         // console.log(res);
         // console.log("UPDATION SUCCESSFUL.");
+        req.flash("success","Listing Updated Successully!");
         res.redirect(`/listings`);
     });
 });
@@ -116,6 +117,7 @@ router.post("/:id/delete",async(req,res)=>{
     }
     await User.findByIdAndDelete(id).then((res_)=>{
         console.log("Data Deleted from listings.");
+        req.flash("success","Listing Deleted Successully!");
         res.redirect("/listings");
     })
 });

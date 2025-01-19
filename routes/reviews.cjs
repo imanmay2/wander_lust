@@ -33,6 +33,7 @@ router.post("/",async(req,res)=>{
     if(await listings.save()){
         // console.log("All done!");
     }
+    req.flash("success","Review Added Successfully.");
     res.redirect(`/listings/${listings._id}`);
 });
 
@@ -41,9 +42,10 @@ router.post("/",async(req,res)=>{
 router.post("/:review_id",async(req,res)=>{
     let {id,review_id}=req.params;
     let res1=await User.findByIdAndUpdate(id,{$pull:{reviews:review_id}});
-    console.log("Data deleted from listings collection");
+
     let res2=await review.findByIdAndDelete(review_id);
-    console.log("Data deleted from reviews collection");
+    
+    req.flash("success","Review Deleted Successfully.");
     res.redirect(`/listings/${id}`);
 });
 
