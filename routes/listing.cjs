@@ -72,12 +72,15 @@ router.post("/addListings/add",async(req,res,next)=>{
 // Edit information.
 router.get("/:id/edit",async(req,res)=>{
     let {id}=req.params;
-    await User.findById(id).then((res_)=>{
-        res.render("listings/edit.ejs",{data:res_});
-    })
+    let listings_=await User.findById(id);
+    console.log(listings_);
+    if(!listings_){
+        req.flash("error","Listing you are looking for doesn't exists!");
+        res.redirect("/listings");
+    } else{
+        res.render("listings/edit.ejs",{data:listings_});
+    }
 });
-
-
 
 
 //Updation in the databse.
@@ -115,16 +118,18 @@ router.post("/:id/delete",async(req,res)=>{
     let {id}=req.params;
     // console.log(id);
     let obj_=await User.findById(id);
+    if(!obj_){
+        req.flash("error","Listing you are looking for doesn't exists!");
+        res.redirect("/listings");
+    }
     let arr=obj_.reviews;
     for(let i of arr){
         await review.findByIdAndDelete(i);
     }
-    await User.findByIdAndDelete(id).then((res_)=>{
-        console.log("Data Deleted from listings.");
+    let listings=await User.findByIdAndDelete(id);
+     if(listings){
         req.flash("success","Listing Deleted Successully!");
         res.redirect("/listings");
-    })
+    }
 });
-
-
 module.exports=router;
