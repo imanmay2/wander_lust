@@ -33,10 +33,14 @@ router.get("/add",(req,res)=>{
 // Showing the information of a particular Listing.
 router.get("/:id",async(req,res)=>{
     let {id}=req.params;
-    await User.findById(id).populate("reviews").then((res_)=>{
-        // console.log(res_);
-        res.render("listings/info.ejs",{data:res_})
-    })
+    let listings_=await User.findById(id).populate("reviews");
+    if(!listings_){
+        req.flash("error","Listing you are looking for doesn't exists!");
+        res.redirect("/listings");
+    } else {
+    res.render("listings/info.ejs",{data:listings_});
+
+    }
 });
 
 
