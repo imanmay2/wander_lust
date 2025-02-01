@@ -22,12 +22,15 @@ router.get("/signup",(req,res)=>{
 
 router.post("/signup",async (req,res)=>{
     try{
-    let {email_,username_,password}=req.body;
+    let {email_,username_,password_}=req.body;
     let newUser=new User({
         email:email_,
-        username:username_
+        username:username_,
+        password:password_
     });
-    let registeredUser=await User.register(newUser,password);
+    // let registeredUser=await User.register(newUser,password);
+    let registerData=await newUser.save();
+    console.log(registerData);
     req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
     res.redirect("/listings");
     } catch(e){
@@ -42,14 +45,12 @@ router.get("/login",(req,res)=>{
 })
 
 
-router.post("/login",passport.authenticate("local",{
-    failureRedirect:"/login",
-    failureFlash:true
-}),async(req,res)=>{
-    req.flash("success","You have successfully logged in! Welcome back to Wanderlust.");
-    res.redirect("/listings");
-}
-)
+router.post("/login",async(req,res)=>{
+    let {username,password}=req.body;
+    console.log("PASSWORD : ",password);
+    // req.flash("success","You have successfully logged in! Welcome back to Wanderlust.");
+    // res.redirect("/listings");
+})
 
 
 module.exports=router;

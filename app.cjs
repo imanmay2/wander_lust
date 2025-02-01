@@ -1,55 +1,50 @@
-let express=require("express");
-const mongoose=require("mongoose");
-let app=express();
-const path=require("path");
-const ejsMate=require("ejs-mate");
-const port=8080;
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"/views"));
-app.use(express.urlencoded({extended:true}));
+let express = require("express");
+const mongoose = require("mongoose");
+let app = express();
+const path = require("path");
+const ejsMate = require("ejs-mate");
+const port = 8080;
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname,"/public")))
-const ExpressError=require("./utils/ExpressError.cjs");
-const User=require("./models/user.js");
+app.use(express.static(path.join(__dirname, "/public")))
+const ExpressError = require("./utils/ExpressError.cjs");
+const User = require("./models/user.js");
 
-const listings_=require("./routes/listing.cjs");
-const reviews_=require("./routes/reviews.cjs");
-const user_=require("./routes/userRouter.cjs");
+const listings_ = require("./routes/listing.cjs");
+const reviews_ = require("./routes/reviews.cjs");
+const user_ = require("./routes/userRouter.cjs");
 
-const session=require("express-session");
-const flash=require("connect-flash");
-const passport=require("passport");
-const LocalStrategy=require("passport-local");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 
+app.engine("ejs", ejsMate);
 
-
-
-app.engine("ejs",ejsMate);
-
-async function main(){
+async function main() {
     await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
 }
 
 
 
-main().then(()=>{
+main().then(() => {
     console.log("Connection Successful ! ");
-}) .catch((err)=>{
+}).catch((err) => {
     console.log(err);
 })
 
 
 
 
-app.listen(port,(req,res)=>{
-    console.log("Server is listening to : ",port);
+app.listen(port, (req, res) => {
+    console.log("Server is listening to : ", port);
 });
 
-let sessionObj={
-    secret:"mysecretCode",
-    resave:false,
-    saveUninitialized:true
+let sessionObj = {
+    secret: "mysecretCode",
+    resave: false,
+    saveUninitialized: true
 }
 // app.get("/",(req,res)=>{
 //     res.send("This is the root site.");
@@ -58,46 +53,53 @@ let sessionObj={
 app.use(session(sessionObj));
 app.use(flash());
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 
 
-app.use((req,res,next)=>{
-    res.locals.message=req.flash("success");
-    res.locals.error=req.flash("error");
+
+// passport.use(new LocalStrategy(
+//     function (username, password, done) {
+//         User.find({ username: username }, function (err, user) {
+//             if (err) { return done(err); }
+//             if (!user) { return done(null, false); }
+//             if (!user.verifyPassword(password)) { return done(null, false); }
+//             return done(null, user);
+//         });
+//     }
+// ));
+
+// passport.serializeUser(function (user, done) {
+//     done(null, user.id);
+// });
+
+// passport.deserializeUser(function (id, done) {
+//     User.findById(id, function (err, user) {
+//         done(err, user);
+//     });
+// });
+
+
+
+app.use((req, res, next) => {
+    res.locals.message = req.flash("success");
+    res.locals.error = req.flash("error");
     next();
 });
 
 
-app.get("/demouser",async(req,res)=>{
-    let fakeUser=new User({
-        email:"imanmay2@gmail.com",
-        username:"imanmay2"
-    });
-    let registeredData=await User.register(fakeUser,"pass1234");
-    res.send(registeredData);
-});
-
-
-
-
 
 //Routers---->>>
-app.use("/listings",listings_);
-app.use("/listings/:id/reviews",reviews_);
-app.use("",user_);
+app.use("/listings", listings_);
+app.use("/listings/:id/reviews", reviews_);
+app.use("", user_);
 
 
-app.use((err,req,res,next)=>{
-    let {status=500,message="Something Went Wrong!"}=err;
-    res.status(status).render("error.ejs",{err});
+app.use((err, req, res, next) => {
+    let { status = 500, message = "Something Went Wrong!" } = err;
+    res.status(status).render("error.ejs", { err });
 });
 
 
-app.all("*",(req,res)=>{
-    throw new ExpressError(404,"Page not found!");
+app.all("*", (req, res) => {
+    throw new ExpressError(404, "Page not found!");
 });
