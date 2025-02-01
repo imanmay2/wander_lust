@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router({mergeParams:true});
 const mongoose=require("mongoose");
-const User=require("../models/user.js");
+
 let app=express();
 const path=require("path");
 app.set("view engine","ejs");
@@ -10,8 +10,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")));
 const ExpressError=require("../utils/ExpressError.cjs");
-const passport=require("passport");
 
+
+const passport=require("passport");
+const User=require("../models/user.js");
 
 router.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
@@ -40,10 +42,14 @@ router.get("/login",(req,res)=>{
 })
 
 
-router.post("/login",passport.authenticate("local", { failureRedirect: '/login',failureFlash:true}),async(req,res)=>{
-    req.flash("success","You are successfully logged in! Welcome back to Wanderlust!");
+router.post("/login",passport.authenticate("local",{
+    failureRedirect:"/login",
+    failureFlash:true
+}),async(req,res)=>{
+    req.flash("success","You have successfully logged in! Welcome back to Wanderlust.");
     res.redirect("/listings");
-})
+}
+)
 
 
 module.exports=router;
