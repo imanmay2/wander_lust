@@ -10,10 +10,11 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
 const ExpressError=require("./utils/ExpressError.cjs");
-
+const User=require("./models/user.js");
 
 const listings_=require("./routes/listing.cjs");
 const reviews_=require("./routes/reviews.cjs");
+const user_=require("./routes/userRouter.cjs");
 
 const session=require("express-session");
 const flash=require("connect-flash");
@@ -45,9 +46,9 @@ let sessionObj={
     resave:false,
     saveUninitialized:true
 }
-app.get("/",(req,res)=>{
-    res.send("This is the root site.");
-})
+// app.get("/",(req,res)=>{
+//     res.send("This is the root site.");
+// })
 
 app.use(session(sessionObj));
 app.use(flash());
@@ -60,19 +61,23 @@ app.use((req,res,next)=>{
 });
 
 
-// app.use((req,res,next)=>{
-//     res.locals.message=req.flash("success");
-//     next();
-// })
+app.get("/demouser",async(req,res)=>{
+    let fakeUser=new User({
+        email:"imanmay2@gmail.com",
+        username:"imanmay2"
+    });
+    let registeredData=await User.register(fakeUser,"pass1234");
+    res.send(registeredData);
+});
 
 
 
 
 
-
+//Routers---->>>
 app.use("/listings",listings_);
 app.use("/listings/:id/reviews",reviews_);
-
+app.use("",user_);
 
 
 app.use((err,req,res,next)=>{

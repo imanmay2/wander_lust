@@ -59,7 +59,8 @@ body{
     font-style: none;
     font-size: small;
     font-weight: 900;
-    margin-bottom:-8px;
+    margin-top:auto !important;    /* tried to fix the footer  */
+   
 }
 
 
@@ -186,12 +187,3 @@ body{
 }
 
 
-/* .flash{
-    width: 800px;
-    height: 50px;
-} */
-
-/* .btn-close{
-    margin-left: 750px;
-    margin-top: -6px;
-} */
