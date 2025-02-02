@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")))
 const ExpressError = require("./utils/ExpressError.cjs");
 const User = require("./models/user.js");
+const passport=require("passport");
+const LocalStrategy=require("passport-local").Strategy;
 
 const listings_ = require("./routes/listing.cjs");
 const reviews_ = require("./routes/reviews.cjs");
@@ -53,30 +55,32 @@ let sessionObj = {
 app.use(session(sessionObj));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+      User.findOne({ username: username }, function (err, user) {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        if (!user.verifyPassword(password)) { return done(null, false); }
+        return done(null, user);
+      });
+    }
+  ));
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function (err, user) {
+      done(err, user);
+    });
+  });
 
 
 
 
-// passport.use(new LocalStrategy(
-//     function (username, password, done) {
-//         User.find({ username: username }, function (err, user) {
-//             if (err) { return done(err); }
-//             if (!user) { return done(null, false); }
-//             if (!user.verifyPassword(password)) { return done(null, false); }
-//             return done(null, user);
-//         });
-//     }
-// ));
 
-// passport.serializeUser(function (user, done) {
-//     done(null, user.id);
-// });
-
-// passport.deserializeUser(function (id, done) {
-//     User.findById(id, function (err, user) {
-//         done(err, user);
-//     });
-// });
 
 
 

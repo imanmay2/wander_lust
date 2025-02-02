@@ -25,6 +25,10 @@ router.get("/",async(req,res)=>{
 
 // Adding the information.
 router.get("/add",(req,res)=>{
+    if(!req.isAuthenticated()){
+        req.flash("error","You must have logged in to create listings");
+        return res.redirect("/login");
+    }
     res.render("listings/add.ejs");
 });
 

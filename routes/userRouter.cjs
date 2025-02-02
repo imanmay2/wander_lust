@@ -1,7 +1,5 @@
 const express=require("express");
-const router=express.Router({mergeParams:true});
-const mongoose=require("mongoose");
-
+const router=express.Router();
 let app=express();
 const path=require("path");
 app.set("view engine","ejs");
@@ -9,7 +7,7 @@ app.set("views",path.join(__dirname,"/views"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")));
-const ExpressError=require("../utils/ExpressError.cjs");
+
 
 
 const passport=require("passport");
@@ -26,11 +24,10 @@ router.post("/signup",async (req,res)=>{
     let newUser=new User({
         email:email_,
         username:username_,
-        password:password_
+        
     });
-    // let registeredUser=await User.register(newUser,password);
-    let registerData=await newUser.save();
-    console.log(registerData);
+    let registeredUser=await User.register(newUser,password_);
+    console.log(registeredUser);
     req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
     res.redirect("/listings");
     } catch(e){
@@ -45,11 +42,11 @@ router.get("/login",(req,res)=>{
 })
 
 
-router.post("/login",async(req,res)=>{
-    let {username,password}=req.body;
-    console.log("PASSWORD : ",password);
-    // req.flash("success","You have successfully logged in! Welcome back to Wanderlust.");
-    // res.redirect("/listings");
+
+//LOGIC TO BE IMPLEMENTED
+router.post("/login",passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),async(req,res)=>{
+    req.flash("success","Welcome back to Wanderlust, You are logged in");
+    res.redirect("/listings");
 })
 
 
