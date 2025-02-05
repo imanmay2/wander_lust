@@ -22,8 +22,9 @@ router.post("/signup",async (req,res)=>{
     let {email_,username_,password_}=req.body;
     //hashing algorithm
     // let salt=bcrypt.genSaltSync(10);
-    let hash=bcrypt.hashSync(password_,8);
+    let hash=(await bcrypt.hash(password_,8)).toString();
     
+
     let checkUser=await User.find({username:username_});
     console.log(checkUser);
     if(!checkUser.length){
@@ -32,6 +33,11 @@ router.post("/signup",async (req,res)=>{
             username:username_,
             password:hash
         });
+        // if(bcrypt.compare("1234",hash)){
+        //     console.log("Password Matched");
+        // } else{
+        //     console.log("Password doesn't match!!");
+        // }
         let registeredUser=await newUser.save();
         console.log(registeredUser);
         req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
@@ -52,9 +58,24 @@ router.get("/login",(req,res)=>{
 
 
 //LOGIC TO BE IMPLEMENTED
-router.post("/login",passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),async(req,res)=>{
-    req.flash("success","Welcome back to Wanderlust, You are logged in");
-    res.redirect("/listings");
+router.post("/login",async (req,res)=>{
+    let {username_,password_}=req.body;
+    let checkUser=await User.find({username:username_});
+    // console.log(checkUser);
+    if(checkUser.length){
+        let hash=checkUser[0].password;
+        if(await bcrypt.compare(password_,hash)){
+            req.flash("success","You are logged in! Welcome back to Wanderlust!");
+            res.redirect("/listings");
+        } else{
+            req.flash("error","Invalid Password/Credentials entered!");
+            res.redirect("/login");
+        }
+    }
+    else{
+        req.flash("error","Invalid Username entered, Please check the Username and try again!");
+        res.redirect("/login");
+    }
 })
 
 
