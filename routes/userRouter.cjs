@@ -7,7 +7,7 @@ app.set("views",path.join(__dirname,"/views"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")));
-
+const bcrypt=require("bcrypt");
 
 
 const passport=require("passport");
@@ -19,19 +19,27 @@ router.get("/signup",(req,res)=>{
 
 
 router.post("/signup",async (req,res)=>{
-    try{
     let {email_,username_,password_}=req.body;
-    let newUser=new User({
-        email:email_,
-        username:username_,
-        
-    });
-    let registeredUser=await User.register(newUser,password_);
-    console.log(registeredUser);
-    req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
-    res.redirect("/listings");
-    } catch(e){
-        req.flash("error",e.message);
+    //hashing algorithm
+    // let salt=bcrypt.genSaltSync(10);
+    let hash=bcrypt.hashSync(password_,8);
+    
+    let checkUser=await User.find({username:username_});
+    console.log(checkUser);
+    if(!checkUser.length){
+        let newUser=new User({
+            email:email_,
+            username:username_,
+            password:hash
+        });
+        let registeredUser=await newUser.save();
+        console.log(registeredUser);
+        req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
+        res.redirect("/listings");
+    }
+    
+     else{
+        req.flash("error","User already exists by this Username");
         res.redirect("/signup");
     }
 });
