@@ -20,11 +20,7 @@ router.get("/signup",(req,res)=>{
 
 router.post("/signup",async (req,res)=>{
     let {email_,username_,password_}=req.body;
-    //hashing algorithm
-    // let salt=bcrypt.genSaltSync(10);
     let hash=(await bcrypt.hash(password_,8)).toString();
-    
-
     let checkUser=await User.find({username:username_});
     console.log(checkUser);
     if(!checkUser.length){
@@ -33,17 +29,11 @@ router.post("/signup",async (req,res)=>{
             username:username_,
             password:hash
         });
-        // if(bcrypt.compare("1234",hash)){
-        //     console.log("Password Matched");
-        // } else{
-        //     console.log("Password doesn't match!!");
-        // }
         let registeredUser=await newUser.save();
-        console.log(registeredUser);
+        // console.log(registeredUser);
         req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
         res.redirect("/listings");
     }
-    
      else{
         req.flash("error","User already exists by this Username");
         res.redirect("/signup");
