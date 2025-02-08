@@ -16,3 +16,31 @@
       }, false)
     })
   })()
+
+
+
+const check_log = document.getElementById("check_log");
+let cookieValue = getCookie();
+if(cookieValue=="in"){
+  check_log.innerText="Logout";
+} else{
+  check_log.innerText="Login";
+}
+
+
+check_log.addEventListener("click",()=>{
+  let cookieValue=getCookie();
+  if(cookieValue=="in"){
+    window.location.href="/logout";
+    check_log.innerText = "Login";
+  }else{
+    window.location.href = "/login";
+    check_log.innerText= "Logout";
+  }
+})
+
+function getCookie(){
+  let cookie=document.cookie;
+  let cookieValue=cookie.split("=")[1];
+  return cookieValue;
+}

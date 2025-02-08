@@ -12,24 +12,31 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
 const ExpressError=require("../utils/ExpressError.cjs");
 const schema=require("../schema.cjs");
-
-
+const cookieParser=require("cookie-parser");
+router.use(cookieParser());
 //Showing the listings in the home page.
 router.get("/",async(req,res)=>{
+    const {log} = req.cookies;
+    if(log==undefined){
+        res.cookie("log","off");
+    }
     const data=await User.find().then((res_)=>{
-        
         res.render("listings/home.ejs",{data:res_});
     }) 
 });
 
 
+
 // Adding the information.
 router.get("/add",(req,res)=>{
-    if(!req.isAuthenticated()){
+    let {log}=req.cookies;
+    if(log=="off"){
         req.flash("error","You must have logged in to create listings");
+        res.cookie("log","add");
         return res.redirect("/login");
+    } else if(log=="in"){
+        res.render("listings/add.ejs");
     }
-    res.render("listings/add.ejs");
 });
 
 
@@ -43,7 +50,6 @@ router.get("/:id",async(req,res)=>{
         res.redirect("/listings");
     } else {
     res.render("listings/info.ejs",{data:listings_});
-
     }
 });
 
