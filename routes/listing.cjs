@@ -19,6 +19,8 @@ router.get("/",async(req,res)=>{
     const {log} = req.cookies;
     if(log==undefined){
         res.cookie("log","off");
+    } else if(log=="add"){
+        res.cookie("log","off");
     }
     const data=await User.find().then((res_)=>{
         res.render("listings/home.ejs",{data:res_});
@@ -30,6 +32,9 @@ router.get("/",async(req,res)=>{
 // Adding the information.
 router.get("/add",(req,res)=>{
     let {log}=req.cookies;
+    if(log=="add"){
+        log = "off";
+    }
     if(log=="off"){
         req.flash("error","You must have logged in to create listings");
         res.cookie("log","add");
