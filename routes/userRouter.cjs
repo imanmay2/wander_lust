@@ -28,9 +28,9 @@ router.post("/signup",async (req,res)=>{
             username:username_,
             password:hash
         });
-        let registeredUser=await newUser.save();
-        // console.log(registeredUser);
+        await newUser.save();
         req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
+        res.cookie("log","in");
         res.redirect("/listings");
     }
      else{
@@ -58,7 +58,8 @@ router.post("/login",async (req,res)=>{
             req.flash("success","You are logged in! Welcome back to Wanderlust!");
             if(log=="add"){
                 res.redirect("/listings/add");
-            }else{
+            }
+            else{
                 res.redirect("/listings");
             }
         } else{
@@ -81,6 +82,10 @@ router.get("/logout",(req,res)=>{
     res.redirect("/listings");
 })
 
+router.get("/signup",(req,res)=>{
+    
+    res.render("/user/signup.ejs");
 
+})
 
 module.exports=router;

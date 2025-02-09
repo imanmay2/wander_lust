@@ -18,13 +18,15 @@
   })()
 
 
-
+const sign=document.getElementById("sign");
 const check_log = document.getElementById("check_log");
 let cookieValue = getCookie();
 if(cookieValue=="in"){
   check_log.innerText="Logout";
+  sign.style.display="none";
 } else{
   check_log.innerText="Login";
+  sign.style.display="block";
 }
 
 
@@ -33,9 +35,12 @@ check_log.addEventListener("click",()=>{
   if(cookieValue=="in"){
     window.location.href="/logout";
     check_log.innerText = "Login";
-  }else{
+    sign.style.display="block";
+  }
+  else{
     window.location.href = "/login";
     check_log.innerText= "Logout";
+    sign.style.display="none";
   }
 })
 
@@ -44,3 +49,11 @@ function getCookie(){
   let cookieValue=cookie.split("=")[1];
   return cookieValue;
 }
+
+sign.addEventListener("click",()=>{
+  window.location.href="/signup";
+  let cookieValue=getCookie();
+  cookieValue
+
+
+})

@@ -11,7 +11,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")))
 const reviewSchema=require("../models/review.cjs");
-
+const cookieParser=require("cookie-parser");
+router.use(cookieParser());
 
 //Creating the Review Model.
 let review=mongoose.model("review",reviewSchema);
@@ -41,12 +42,10 @@ router.post("/",async(req,res)=>{
 //Delete the reviews.
 router.post("/:review_id",async(req,res)=>{
     let {id,review_id}=req.params;
+    let {log}=req.cookies;
     let res1=await User.findByIdAndUpdate(id,{$pull:{reviews:review_id}});
-
     let res2=await review.findByIdAndDelete(review_id);
-    
     req.flash("success","Review Deleted Successfully.");
     res.redirect(`/listings/${id}`);
 });
-
 module.exports=router;

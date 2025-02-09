@@ -187,6 +187,6 @@ body{
 }
 
 
-#check_log{
+#check_log,#sign{
     font-style: italic;
 }
