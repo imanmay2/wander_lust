@@ -52,8 +52,4 @@ function getCookie(){
 
 sign.addEventListener("click",()=>{
   window.location.href="/signup";
-  let cookieValue=getCookie();
-  cookieValue
-
-
 })

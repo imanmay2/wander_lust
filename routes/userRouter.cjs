@@ -57,20 +57,23 @@ router.post("/login",async (req,res)=>{
             res.cookie("log","in");
             req.flash("success","You are logged in! Welcome back to Wanderlust!");
             if(log=="add"){
-                res.redirect("/listings/add");
+                return res.redirect("/listings/add");
+            } else if(log=="edit"){
+                let {id}=req.cookies;
+                return res.redirect(`/listings/${id}/edit`);
             }
             else{
-                res.redirect("/listings");
+                return res.redirect("/listings");
             }
         } else{
             res.cookie("log","off");
             req.flash("error","Invalid Password/Credentials entered!");
-            res.redirect("/login");
+            return res.redirect("/login");
         }
     }
     else{
         req.flash("error","Invalid Username entered, Please check the Username and try again!");
-        res.redirect("/login");
+        return res.redirect("/login");
     }
 })
 
@@ -83,9 +86,7 @@ router.get("/logout",(req,res)=>{
 })
 
 router.get("/signup",(req,res)=>{
-    
     res.render("/user/signup.ejs");
-
 })
 
 module.exports=router;

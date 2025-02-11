@@ -32,7 +32,7 @@ router.get("/",async(req,res)=>{
 // Adding the information.
 router.get("/add",(req,res)=>{
     let {log}=req.cookies;
-    if(log=="add"){
+    if(log=="add" || log=="edit"){
         log = "off";
     }
     if(log=="off"){
@@ -87,15 +87,25 @@ router.post("/addListings/add",async(req,res,next)=>{
 // Edit information.
 router.get("/:id/edit",async(req,res)=>{
     let {id}=req.params;
-    let listings_=await User.findById(id);
-    console.log(listings_);
-    if(!listings_){
-        req.flash("error","Listing you are looking for doesn't exists!");
-        res.redirect("/listings");
-    } else{
-        res.render("listings/edit.ejs",{data:listings_});
+    res.cookie("id",id);
+    let {log}=req.cookies;
+    if(log=="off"){
+        res.cookie("log","edit");
+        req.flash("error","Please login before editing the listing.");
+        return res.redirect("/login");
+    } else if(log=="in"){
+        
+        let listings_=await User.findById(id);
+        console.log(listings_);
+        if(!listings_){
+            req.flash("error","Listing you are looking for doesn't exists!");
+            res.redirect("/listings");
+        } else{
+            res.render("listings/edit.ejs",{data:listings_});
+        }
     }
 });
+
 
 
 //Updation in the databse.
