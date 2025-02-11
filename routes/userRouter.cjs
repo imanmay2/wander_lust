@@ -61,6 +61,8 @@ router.post("/login",async (req,res)=>{
             } else if(log=="edit"){
                 let {id}=req.cookies;
                 return res.redirect(`/listings/${id}/edit`);
+            } else if(log=="delete"){
+                return res.redirect(`/listings/delete`);
             }
             else{
                 return res.redirect("/listings");

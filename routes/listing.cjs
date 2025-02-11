@@ -32,7 +32,7 @@ router.get("/",async(req,res)=>{
 // Adding the information.
 router.get("/add",(req,res)=>{
     let {log}=req.cookies;
-    if(log=="add" || log=="edit"){
+    if(log=="add" || log=="edit" || log=="delete"){
         log = "off";
     }
     if(log=="off"){
@@ -43,6 +43,27 @@ router.get("/add",(req,res)=>{
         res.render("listings/add.ejs");
     }
 });
+
+router.get("/delete",async(req,res)=>{
+    let {id} = req.cookies;
+    
+    let obj_=await User.findById(id);
+    console.log(obj_);
+    if(!obj_){
+        req.flash("error","Listing you are looking for doesn't exists!");
+        return res.redirect("/listings");
+    }
+    let arr=obj_.reviews;
+    for(let i of arr){
+        await review.findByIdAndDelete(i);
+    }
+    let listings=await User.findByIdAndDelete(id);
+    if(listings){
+        req.flash("success","Listing Deleted Successully!");
+        return res.redirect("/listings");
+    }
+});
+
 
 
 
@@ -108,6 +129,7 @@ router.get("/:id/edit",async(req,res)=>{
 
 
 
+
 //Updation in the databse.
 router.post("/:id/update",async(req,res,next)=>{
         let {id}=req.params;
@@ -136,25 +158,24 @@ router.post("/:id/update",async(req,res,next)=>{
 });
 
 
+
+
 // Deleting the listings.
 const reviewSchema=require("../models/review.cjs");
 let review=mongoose.model("review",reviewSchema);
 router.post("/:id/delete",async(req,res)=>{
     let {id}=req.params;
-    // console.log(id);
-    let obj_=await User.findById(id);
-    if(!obj_){
-        req.flash("error","Listing you are looking for doesn't exists!");
-        res.redirect("/listings");
+    res.cookie("id",id);
+    let {log}=req.cookies;
+    if(log=="off"){
+        res.cookie("log","delete");
+        req.flash("error","Please login before you delete.");
+        return res.redirect("/login");
     }
-    let arr=obj_.reviews;
-    for(let i of arr){
-        await review.findByIdAndDelete(i);
-    }
-    let listings=await User.findByIdAndDelete(id);
-     if(listings){
-        req.flash("success","Listing Deleted Successully!");
-        res.redirect("/listings");
+    else if(log=="in"){
+        return res.redirect("/listings/delete");
     }
 });
+
+
 module.exports=router;
