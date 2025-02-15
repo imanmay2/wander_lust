@@ -20,14 +20,13 @@ router.get("/", async (req, res) => {
     const { log } = req.cookies;
     if (log == undefined) {
         res.cookie("log", "off");
-    } else if (log == "add" || log == "review" || log=="deleteReview") {  //doubt
+    } else if (log == "add" || log == "review" || log=="deleteReview") {  
         res.cookie("log", "off");
     }
     const data = await User.find().then((res_) => {
         res.render("listings/home.ejs", { data: res_ });
     })
 });
-
 
 
 // Adding the information.
@@ -80,8 +79,6 @@ router.get("/:id", async (req, res) => {
         let { currentUser } = req.cookies;
         res.render("listings/info.ejs", { data: listings_, currentUser: currentUser, postOwner: listings_.owner });
     }
-
-
 });
 
 

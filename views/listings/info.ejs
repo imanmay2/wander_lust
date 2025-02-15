@@ -18,14 +18,14 @@
                         </b>
                 </p>
                 <% if(currentUser==postOwner){ %>
-                <div>
-                    <a href="/listings/<%=data._id%>/edit" class="btn btn-danger">Edit</a>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <form method="POST" action="/listings/<%=data._id%>/delete">
-                    <button class="btn btn-dark">Delete</button>
-                </form>
-              <%  } %>
+                    <div>
+                        <a href="/listings/<%=data._id%>/edit" class="btn btn-danger">Edit</a>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form method="POST" action="/listings/<%=data._id%>/delete">
+                        <button class="btn btn-dark">Delete</button>
+                    </form>
+                    <% } %>
 
             </div>
         </div>
@@ -74,10 +74,14 @@
                                 <%= review.comment %> <br>
                                     <%= review.rating %>
                             </div>
-
+                            <% if(currentUser==review.username){ %>
+                               
                             <div>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button
-                                    class="btn btn-dark margin-top">Delete</button></div>
+                                    class="btn btn-dark margin-top">Delete</button>
+                            </div>
+                            <% } %>
+
                         </div>
                     </form>
                     <% } %>

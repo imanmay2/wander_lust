@@ -64,6 +64,5 @@ router.post("/:review_id", async (req, res) => {
         res.cookie("id",id);
         return res.redirect("/login");
     }
-    
 });
 module.exports = router;
