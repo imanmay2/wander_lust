@@ -11,6 +11,10 @@ let reviewSchema=new mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now()
+    },
+    username:{
+        type:String,
+        required:true
     }
 });
 

@@ -8,9 +8,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")));
 const bcrypt=require("bcrypt");
-const User=require("../models/user.js");
+const User=require("../models/user.cjs");
 const cookieParser=require("cookie-parser");
 router.use(cookieParser());
+
 
 router.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
@@ -29,6 +30,7 @@ router.post("/signup",async (req,res)=>{
             password:hash
         });
         await newUser.save();
+        res.cookie("currentUser",username_);
         req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
         res.cookie("log","in");
         res.redirect("/listings");
@@ -56,6 +58,7 @@ router.post("/login",async (req,res)=>{
             let {log} = req.cookies;
             res.cookie("log","in");
             req.flash("success","You are logged in! Welcome back to Wanderlust!");
+            res.cookie("currentUser",username_);
             if(log=="add"){
                 return res.redirect("/listings/add");
             } else if(log=="edit"){
@@ -63,6 +66,9 @@ router.post("/login",async (req,res)=>{
                 return res.redirect(`/listings/${id}/edit`);
             } else if(log=="delete"){
                 return res.redirect(`/listings/delete`);
+            }else if(log=="review"){
+                let {id}=req.cookies;
+                return res.redirect(`/listings/${id}`);
             }
             else{
                 return res.redirect("/listings");
@@ -83,6 +89,7 @@ router.get("/logout",(req,res)=>{
     const {log} = req.cookies;
     if(log == "in"){
         res.cookie("log","off");
+        res.cookie("currentUser","");
     }
     res.redirect("/listings");
 })

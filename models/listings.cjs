@@ -1,36 +1,41 @@
-const mongoose=require("mongoose");
+const { required } = require("joi");
+const mongoose = require("mongoose");
 
-const userSchema=new mongoose.Schema({
-    title:{
-        type:String,
-        required:true
+const userSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
     },
-    description :{
-        type:String,
-        required:true
+    description: {
+        type: String,
+        required: true
     },
-    image:{
+    image: {
         filename: String,
-        url:String
+        url: String
     },
-    price:{
-        type:Number,
-        required:true
+    price: {
+        type: Number,
+        required: true
     },
-    location:{
-        type:String,
-        required:true
+    location: {
+        type: String,
+        required: true
     },
-    country:{
-        type:String,
-        required:true
+    country: {
+        type: String,
+        required: true
     },
-    reviews:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"review"
-    } ]  
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "review"
+    }],
+    owner: {
+        type: String,
+        required: true
+    }
 })
 
 
 
-module.exports=userSchema;
+module.exports = userSchema;

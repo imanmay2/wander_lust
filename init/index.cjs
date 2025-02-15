@@ -14,6 +14,11 @@ main().then(async(req,res)=>{
         console.log(res_);
         console.log("Data is deleted.");
     });
+
+    initialize_data.data=initialize_data.data.map((obj)=>({
+        ...obj,
+        owner:" "
+    }));
     await User.insertMany(initialize_data.data).then((res_)=>{
         console.log("Data was added.");
     })

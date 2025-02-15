@@ -18,6 +18,21 @@
   })()
 
 
+  function getCookie(){
+    let cookie=document.cookie;
+    // console.log(cookie);
+    x=cookie.substring(cookie.lastIndexOf("log=")+4);
+    let cookieValue="";
+    if(x.includes(";")){
+      cookieValue = x.substr(0,x.indexOf(";"));
+    }else{
+      cookieValue=x;
+    }
+    
+    // console.log(cookieValue);
+    return cookieValue;
+  }
+
 const sign=document.getElementById("sign");
 const check_log = document.getElementById("check_log");
 let cookieValue = getCookie();
@@ -44,11 +59,7 @@ check_log.addEventListener("click",()=>{
   }
 })
 
-function getCookie(){
-  let cookie=document.cookie;
-  let cookieValue=cookie.split("=")[1];
-  return cookieValue;
-}
+
 
 sign.addEventListener("click",()=>{
   window.location.href="/signup";

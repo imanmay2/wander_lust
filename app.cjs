@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")))
 const ExpressError = require("./utils/ExpressError.cjs");
-const User = require("./models/user.js");
+const User = require("./models/user.cjs");
 
 const listings_ = require("./routes/listing.cjs");
 const reviews_ = require("./routes/reviews.cjs");
