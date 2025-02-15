@@ -53,9 +53,17 @@ router.post("/", async (req, res) => {
 router.post("/:review_id", async (req, res) => {
     let { id, review_id } = req.params;
     let { log } = req.cookies;
-    let res1 = await User.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
-    let res2 = await review.findByIdAndDelete(review_id);
-    req.flash("success", "Review Deleted Successfully.");
-    res.redirect(`/listings/${id}`);
+    if(log=="in"){
+        let res1 = await User.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
+        let res2 = await review.findByIdAndDelete(review_id);
+        req.flash("success", "Review Deleted Successfully.");
+        res.redirect(`/listings/${id}`);
+    } else if(log=="off"){
+        req.flash("error","Please Login to continue!!");
+        res.cookie("log","deleteReview");
+        res.cookie("id",id);
+        return res.redirect("/login");
+    }
+    
 });
 module.exports = router;

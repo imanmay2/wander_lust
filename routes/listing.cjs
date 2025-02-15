@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
     const { log } = req.cookies;
     if (log == undefined) {
         res.cookie("log", "off");
-    } else if (log == "add" || log == "review") {  //doubt
+    } else if (log == "add" || log == "review" || log=="deleteReview") {  //doubt
         res.cookie("log", "off");
     }
     const data = await User.find().then((res_) => {

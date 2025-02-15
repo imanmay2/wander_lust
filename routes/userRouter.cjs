@@ -66,10 +66,10 @@ router.post("/login",async (req,res)=>{
                 return res.redirect(`/listings/${id}/edit`);
             } else if(log=="delete"){
                 return res.redirect(`/listings/delete`);
-            }else if(log=="review"){
+            }else if(log=="review" || log=="deleteReview"){
                 let {id}=req.cookies;
                 return res.redirect(`/listings/${id}`);
-            }
+            } 
             else{
                 return res.redirect("/listings");
             }
