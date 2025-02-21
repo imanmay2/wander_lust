@@ -32,7 +32,11 @@ router.post("/signup",async (req,res)=>{
         await newUser.save();
         res.cookie("currentUser",username_);
         req.flash("success","You are successfully Signed up. Welcome to Wanderlust");
+        let {log}=req.cookies;
         res.cookie("log","in");
+        if(log=="add"){
+            return res.redirect("/listings/add");
+        }
         res.redirect("/listings");
     }
      else{
