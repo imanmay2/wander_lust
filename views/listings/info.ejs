@@ -8,6 +8,7 @@
             <img src="<%= data.image.url %>" class="card-img-top img-info" alt="listings_image">
             <div class="card-body">
                 <p class="card-text">
+                    <font size="4">Post Written by : <u><b><%= postOwner%></b></u></font> <br>
                     <%= data.description %> <br>
                         Price- <b>&#8377;<%= data.price %> per night</b> <br>
                         Location- <b>
@@ -17,16 +18,13 @@
                             <%= data.country %>
                         </b>
                 </p>
-                <% if(currentUser==postOwner){ %>
                     <div>
                         <a href="/listings/<%=data._id%>/edit" class="btn btn-danger">Edit</a>
                     </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;
                     <form method="POST" action="/listings/<%=data._id%>/delete">
                         <button class="btn btn-dark">Delete</button>
                     </form>
-                    <% } %>
-
             </div>
         </div>
         </div>
@@ -86,5 +84,4 @@
                     </form>
                     <% } %>
                         <% } %>
-
     </body>

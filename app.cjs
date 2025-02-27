@@ -27,7 +27,6 @@ async function main() {
 }
 
 
-
 main().then(() => {
     console.log("Connection Successful ! ");
 }).catch((err) => {
@@ -57,7 +56,9 @@ app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.message = req.flash("success");
+
     res.locals.error = req.flash("error");
+    
     next();
 });
 
