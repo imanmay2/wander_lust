@@ -8,7 +8,12 @@
             <img src="<%= data.image.url %>" class="card-img-top img-info" alt="listings_image">
             <div class="card-body">
                 <p class="card-text">
-                    <font size="4">Post Written by : <u><b><%= postOwner%></b></u></font> <br>
+                    <font size="4">Post Written by : <u><b>
+                       <%  if(postOwner!=""){ %>
+                        @<%=postOwner%>
+                        <% } %>
+                        
+                    </b></u></font> <br>
                     <%= data.description %> <br>
                         Price- <b>&#8377;<%= data.price %> per night</b> <br>
                         Location- <b>
@@ -69,8 +74,9 @@
                     <form action="/listings/<%=data._id%>/reviews/<%=review._id%>" method="POST">
                         <div class="review_section" id="margin_left">
                             <div id="para_">
-                                <%= review.comment %> <br>
-                                    <%= review.rating %>
+                                <font size="4"><b>@<%= review.username %></b></font><br> <br>
+                               <u>Experience- </u><%= review.comment %> <br> 
+                               <b><u>Rating </u> </b> <%= review.rating %> stars
                             </div>
                             <% if(currentUser==review.username){ %>
                                

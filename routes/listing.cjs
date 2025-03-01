@@ -130,7 +130,7 @@ router.get("/:id/edit", async (req, res) => {
         req.flash("error", "Please login before editing the listing.");
         return res.redirect("/login");
     } else if(currentUser!=listings_.owner){
-        res.cookie("log", "edit");
+        // res.cookie("log", "edit");
         req.flash("error", "You don't have permission to Edit.");
         return res.redirect(`/listings/${id}`);
     }else if (log == "in") {
@@ -154,7 +154,6 @@ router.post("/:id/update", async (req, res, next) => {
     let { id } = req.params;
     let { title_, descrip_, url_, price_, location_, country_ } = req.body;
     let result = schema.validate(req.body);
-    // console.log(result);
     if (result.error) {
         throw new ExpressError(500, result.error);
     }
@@ -172,7 +171,7 @@ router.post("/:id/update", async (req, res, next) => {
         // console.log(res);
         // console.log("UPDATION SUCCESSFUL.");
         req.flash("success", "Listing Updated Successully!");
-        res.redirect(`/listings`);
+        res.redirect(`/listings/${id}`);
     });
 });
 

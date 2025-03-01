@@ -94,6 +94,7 @@ router.get("/logout",(req,res)=>{
     if(log == "in"){
         res.cookie("log","off");
         res.cookie("currentUser","");
+        res.cookie("id","");
     }
     res.redirect("/listings");
 })
