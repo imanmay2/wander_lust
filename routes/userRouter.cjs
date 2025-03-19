@@ -11,13 +11,11 @@ const cookieParser=require("cookie-parser");
 const userRouterControl = require("../Controllers/userRouter.cjs");
 router.use(cookieParser());
 
-router.get("/signup",userRouterControl.signupGetRoute);
+router.route("/signup").get(userRouterControl.signupGetRoute).post(userRouterControl.signupPostRoute)
 
-router.post("/signup",userRouterControl.signupPostRoute);
+router.route("/login").get(userRouterControl.loginRoute).post(userRouterControl.loginPostRoute);
 
-router.get("/login",userRouterControl.loginRoute)
 
-router.post("/login",userRouterControl.loginPostRoute)
 
 router.get("/logout",userRouterControl.logoutRoute)
 
