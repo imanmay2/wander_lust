@@ -10,59 +10,16 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")))
-const reviewSchema = require("../models/review.cjs");
+
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-//Creating the Review Model.
-let review = mongoose.model("review", reviewSchema);
-router.post("/", async (req, res) => {
-    let { id } = req.params;
-    let { log } = req.cookies;
-    let {currentUser}=req.cookies;
-    if (log == "in") {
-        
-        // console.log(id);
-        let listings = await User.findById(id);
 
-        let { rating_, comment_ } = req.body;
+const reviewController=require("../Controllers/reviews.cjs");
 
-        let review_ = new review({
-            comment: comment_,
-            rating: rating_,
-            username:currentUser
-        });
-        listings.reviews.push(review_);
-        if (await review_.save()) {
-            // console.log("Data saved");
-        }
-        if (await listings.save()) {
-            // console.log("All done!");
-        }
-        req.flash("success", "Review Added Successfully.");
-        res.redirect(`/listings/${listings._id}`);
-    } else if(log=="off"){
-        res.cookie("log","review");
-        res.cookie("id",id);
-        req.flash("error","Please login before you add Review!");
-        return res.redirect("/login");
-    }
-});
+
+router.post("/", reviewController.index);
 
 //Delete the reviews.
-router.post("/:review_id", async (req, res) => {
-    let { id, review_id } = req.params;
-    let { log } = req.cookies;
-    if(log=="in"){
-        let res1 = await User.findByIdAndUpdate(id, { $pull: { reviews: review_id } });
-        let res2 = await review.findByIdAndDelete(review_id);
-        req.flash("success", "Review Deleted Successfully.");
-        res.redirect(`/listings/${id}`);
-    } else if(log=="off"){
-        req.flash("error","Please Login to continue!!");
-        res.cookie("log","deleteReview");
-        res.cookie("id",id);
-        return res.redirect("/login");
-    }
-});
+router.post("/:review_id", reviewController.deleteReviews);
 module.exports = router;
