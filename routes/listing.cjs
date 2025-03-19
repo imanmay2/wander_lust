@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const mongoose = require("mongoose");
-let userSchema = require("../models/listings.cjs");
 let app = express();
 const path = require("path");
-const User = mongoose.model("listing", userSchema);
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -54,27 +52,10 @@ router.post("/:id/update", listingController.updateInfoRoute);
 
 
 // Deleting the listings.
-const reviewSchema = require("../models/review.cjs");
-let review = mongoose.model("review", reviewSchema);
-router.post("/:id/delete", async (req, res) => {
-    let { id } = req.params;
-    let listings_=await User.findById(id);
-    let {currentUser}=req.cookies;
-    res.cookie("id", id);
-    let { log } = req.cookies;
-    if (log == "off") {
-        res.cookie("log", "delete");
-        req.flash("error", "Please login before you delete.");
-        return res.redirect("/login");
-    }
-    else if (log == "in") {
-        if(currentUser!=listings_.owner){
-            req.flash("error","You don't have permission to Delete the listing.");
-            return res.redirect(`/listings/${id}`);
-        }
-        return res.redirect("/listings/delete");
-    }
-});
+router.post("/:id/delete", listingController.deleteListings);
+
+
+
 
 
 module.exports = router;

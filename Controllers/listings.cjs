@@ -152,3 +152,24 @@ module.exports.updateInfoRoute=async (req, res, next) => {
         res.redirect(`/listings/${id}`);
     });
 }
+
+
+module.exports.deleteListings=async (req, res) => {
+    let { id } = req.params;
+    let listings_=await User.findById(id);
+    let {currentUser}=req.cookies;
+    res.cookie("id", id);
+    let { log } = req.cookies;
+    if (log == "off") {
+        res.cookie("log", "delete");
+        req.flash("error", "Please login before you delete.");
+        return res.redirect("/login");
+    }
+    else if (log == "in") {
+        if(currentUser!=listings_.owner){
+            req.flash("error","You don't have permission to Delete the listing.");
+            return res.redirect(`/listings/${id}`);
+        }
+        return res.redirect("/listings/delete");
+    }
+}
