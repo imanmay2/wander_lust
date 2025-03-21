@@ -41,8 +41,22 @@
 
             <div class="card" id="review_card">
                 <h2>Leave a Review</h2><br>
-                <label for="rating">Rating</label>
-                <input type="range" id="rating" min="1" max="5" name="rating_">
+                
+                <fieldset class="starability-slot">
+                    <legend>Rating:</legend>
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="rating_" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="rating_" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="rating_" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="rating_" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="rating_" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
+
                 <br>
                 <label for="comment">Comments</label>
                 <div>
@@ -63,7 +77,7 @@
                 </div>
               </div> -->
 
-        <% console.log(data.reviews.length); %>
+        <!-- <% console.log(data.reviews.length); %> -->
 
             <% if(data.reviews.length>0){ %>
                 <center>
@@ -74,9 +88,12 @@
                     <form action="/listings/<%=data._id%>/reviews/<%=review._id%>" method="POST">
                         <div class="review_section" id="margin_left">
                             <div id="para_">
-                                <font size="4"><b>@<%= review.username %></b></font><br> <br>
+                                <font size="4"><b>@<%= review.username %></b></font><br> 
                                <u>Experience- </u><%= review.comment %> <br> 
-                               <b><u>Rating </u> </b> <%= review.rating %> stars
+                               <!-- <b><u>Rating </u> </b> <%= review.rating %> stars -->
+                               <p class="starability-result" data-rating="<%= review.rating %>">
+                                Rated: 3 stars
+                              </p>
                             </div>
                             <% if(currentUser==review.username){ %>
                                
