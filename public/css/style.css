@@ -1,56 +1,56 @@
-body{
+body {
     font-style: oblique;
 }
 
 
 .container {
     padding-top: 50px;
-    max-height:765px;
+    max-height: 765px;
 
 }
 
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
 }
 
 
 
-#logo{
-    margin-top:31px;
-    color:red;
-    margin-left:10px;
+#logo {
+    margin-top: 31px;
+    color: red;
+    margin-left: 10px;
 }
 
 
-.navbar{
+.navbar {
     height: 50px;
     width: 100%;
-    position:fixed;
+    position: fixed;
     background-color: #edece8;
     margin-top: -10px;
-    display:inline;
+    display: inline;
     margin-left: -8px;
 }
 
 
 
-.nav_items{
+.nav_items {
     display: inline-block;
 }
 
 
 
-.nav-link{
+.nav-link {
     text-decoration: none;
 }
 
 
-.footer{
+.footer {
     /* margin-top: 327px; */
     background-color: #d9dfe6;
     height: 116px;
@@ -59,134 +59,150 @@ body{
     font-style: none;
     font-size: small;
     font-weight: 900;
-    margin-top:auto !important;    /* tried to fix the footer  */
-   
+    margin-top: auto !important;
+    /* tried to fix the footer  */
+
 }
 
 
-.card_{
-    height:271px;
+.card_ {
+    height: 271px;
 }
 
-.card{
+.card {
     margin-bottom: 20px;
-    width:309px !important;
-    height:362px !important;
+    width: 309px !important;
+    height: 362px !important;
 }
 
-._decorate{
+._decorate {
     text-decoration: none;
 }
 
-.card_hover:hover{
+.card_hover:hover {
     opacity: 0.7;
     background-color: white;
 }
 
-#navbarNav{
+#navbarNav {
     margin-top: 24px;
     margin-bottom: -3px;
-    height:20px !important;
+    height: 20px !important;
 }
 
-.row{
-    margin-left:-38px !important;
+.row {
+    margin-left: -38px !important;
     margin-right: -51px !important;
     margin-top: 40px !important;
 }
 
 
 
-.inline_block_{
-    display:inline-block;
+.inline_block_ {
+    display: inline-block;
 }
 
 
-.add_heading{
+.add_heading {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
 
-.home_head{
-    margin-bottom:-20px !important;
+.home_head {
+    margin-bottom: -20px !important;
     margin-top: 20px !important;
-    margin-left : -23px ;
+    margin-left: -23px;
 }
 
 
 
-.listings_details{
-    margin-left:20px;
+.listings_details {
+    margin-left: 20px;
 
 }
 
 
-.card_info{
-    margin-left:350px;
+.card_info {
+    margin-left: 350px;
     border: none !important;
     height: 700px !important;
 }
 
 
-.img-info{
-    height:400px;
-    width:600px !important;
+.img-info {
+    height: 400px;
+    width: 600px !important;
 }
 
-.img-home{
+.img-home {
     height: 250px;
     width: 307px !important;
 }
 
-.icons_footer{
+.icons_footer {
     margin-bottom: -10px !important;
-    
+
 }
 
-.card-body{
+.card-body {
     max-height: 500px;
 }
 
-.review{
+.review {
     display: inline-block;
     /* text-align: center; */
 }
 
-#review_card{
-    border:none;
+#review_card {
+    border: none;
     text-align: left;
-    max-width:300px;
-    max-height:254px;
+    max-width: 300px;
+    max-height: 254px;
     margin-left: 440px;
 }
 
-#margin_left{
+#margin_left {
     margin-left: 440px;
 }
 
-.review_section{
-    border:1px solid black;
+.review_section {
+    border: 1px solid black;
     margin-bottom: 10px;
     border-radius: 12px;
-    max-width:600px;
+    max-width: 600px;
     height: 150px;
-   
+
 }
 
-#para_{
-    max-width:600px;
+#para_ {
+    max-width: 600px;
     height: 90px;
-   overflow-x: hidden;
-   overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.margin-top{
+.margin-top {
     margin-top: 10px;
-    position:sticky;
+    position: sticky;
 }
 
 
-#check_log,#sign{
+#check_log,
+#sign {
     font-style: italic;
+}
+
+
+#map {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.mapboxgl-map {
+    height: 400px;
+    width: 640px !important;
+    justify-self: center !important;
 }
