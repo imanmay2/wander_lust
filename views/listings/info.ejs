@@ -1,5 +1,7 @@
 <% layout("/layouts/boilerplate.ejs") -%>
-
+<script>
+    let mapToken="<%=process.env.MAP_TOKEN%>";
+</script>
     <body>
         <h2 class="listing_details" align="center">
             <%= data.title %>
@@ -104,38 +106,7 @@
                     <% } %>
                     <br><br>
                         <h2 align="center">Where you'll be</h2>
-                        <div id="map">Hello</div>
-                        <script>
-                            mapboxgl.accessToken = "<%=process.env.MAP_TOKEN %>";
-                            const map = new mapboxgl.Map({
-                                container: 'map',
-                                // You can add layers to the predetermined slots within the Standard style basemap.
-                                style: 'mapbox://styles/mapbox/standard',
-                                center: [-74.0060152, 40.7127281],
-                                zoom: 5,
-                                maxZoom: 6
-                            });
-
-                            map.on('style.load', () => {
-                                map.addSource('urban-areas', {
-                                    'type': 'geojson',
-                                    'data': 'https://docs.mapbox.com/mapbox-gl-js/assets/ne_50m_urban_areas.geojson'
-                                });
-
-                                map.addLayer({
-                                    'id': 'urban-areas-fill',
-                                    'type': 'fill',
-                                    // This property allows you to identify which `slot` in
-                                    // the Mapbox Standard your new layer should be placed in (`bottom`, `middle`, `top`).
-                                    'slot': 'middle',
-                                    'source': 'urban-areas',
-                                    'layout': {},
-                                    'paint': {
-                                        'fill-color': '#f08',
-                                        'fill-opacity': 0.4
-                                    }
-                                });
-                            });
-                        </script>
+                        <div id="map"></div>
                         
+              <script src="/js/map.js"></script>          
     </body>
