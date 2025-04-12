@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 let userSchema = require("../models/listings.cjs");
 const User = mongoose.model("listing", userSchema);
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken=process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+// stylesService exposes listStyles(), createStyle(), getStyle(), etc.
+
 
 module.exports.indexRoute=async (req, res) => {
     const { log } = req.cookies;
@@ -93,6 +98,16 @@ module.exports.addRoute=async (req, res, next) => {
     }
     await data_.save();
 
+
+    //code for converting the location into its respective coordinates.
+    geocodingClient.forwardGeocode({
+        query: location_,
+        limit: 1
+      })
+        .send()
+        .then(response => {
+          console.log(response.body.features[0].geometry.coordinates);
+        });
     req.flash("success", "Listing Added Successully!");
     res.redirect("/listings");
 }
