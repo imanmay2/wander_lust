@@ -1,14 +1,25 @@
 
 mapboxgl.accessToken = mapToken;
-console.log(mapToken);
+
+let coordinate = center_.toString().split(",");
 const map = new mapboxgl.Map({
     container: 'map',
     // You can add layers to the predetermined slots within the Standard style basemap.
     style: 'mapbox://styles/mapbox/standard',
-    center: [8.6821, 50.1109],
+    center: [coordinate[0], coordinate[1]],
     zoom: 5,
-    maxZoom: 6
+    maxZoom: 9
 });
+
+const marker1 = new mapboxgl.Marker({ color: "red" })
+    .setLngLat([coordinate[0], coordinate[1]])
+    .setPopup(new mapboxgl.Popup({ offset: 25 })
+        .setHTML(`<h3>${location_}</h4> <p>Exact location after booking.</p>`)
+        .setMaxWidth("300px")
+    )
+       
+    .addTo(map);
+
 
 map.on('style.load', () => {
     map.addSource('urban-areas', {

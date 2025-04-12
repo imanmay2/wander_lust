@@ -33,7 +33,18 @@ const userSchema = new mongoose.Schema({
     owner: {
         type: String,
         required: true
-    }
+    },
+    geometry: {
+        type: {
+          type: String, 
+          enum: ['Point'], 
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        }
+      }
 })
 
 

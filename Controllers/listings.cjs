@@ -77,11 +77,25 @@ module.exports.showListingRoute=async (req, res) => {
 
 
 module.exports.addRoute=async (req, res, next) => {
+    let geometry_;
     let { title_, descrip_, url_, price_, location_, country_ } = req.body;
     const { currentUser } = req.cookies;
     if ((!req.body)) {
         throw new ExpressError(400, "Content is Empty");
     }
+
+
+    //code for converting the location into its respective coordinates.
+    await geocodingClient.forwardGeocode({
+        query: location_,
+        limit: 1
+      })
+        .send()
+        .then(response => {
+          geometry_=response.body.features[0].geometry;
+        });
+
+
     let data_ = new User({
         title: title_,
         description: descrip_,
@@ -91,7 +105,8 @@ module.exports.addRoute=async (req, res, next) => {
         },
         price: price_,
         location: location_,
-        country: country_
+        country: country_,
+        geometry:geometry_
     });
     if (currentUser != null || currentUser != undefined || currentUser != "") {
         data_.owner = currentUser;
@@ -99,15 +114,7 @@ module.exports.addRoute=async (req, res, next) => {
     await data_.save();
 
 
-    //code for converting the location into its respective coordinates.
-    geocodingClient.forwardGeocode({
-        query: location_,
-        limit: 1
-      })
-        .send()
-        .then(response => {
-          console.log(response.body.features[0].geometry.coordinates);
-        });
+    
     req.flash("success", "Listing Added Successully!");
     res.redirect("/listings");
 }
