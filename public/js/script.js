@@ -26,9 +26,10 @@ window.onload = function () {
   };
 };
 
+let currentUser;
 function getCookie() {
   let cookie = document.cookie;
-  // console.log(cookie);
+  currentUser=cookie.split("=")[cookie.split("=").length-1];
   x = cookie.substring(cookie.lastIndexOf("log=") + 4);
   let cookieValue = "";
   if (x.includes(";")) {
@@ -47,10 +48,12 @@ const username = document.getElementById("username");
 let cookieValue = getCookie();
 if (cookieValue == "in") {
   check_log.innerText = "Logout";
-  username.innerText = "username";
+  check_log.style.fontWeight=900;
+  username.innerHTML = "@"+currentUser.italics();
   sign.style.display = "none";
 } else {
   check_log.innerText = "Login";
+  check_log.style.fontWeight=900;
   username.innerText = "";
   sign.style.display = "block";
 }
@@ -61,7 +64,8 @@ check_log.addEventListener("click", () => {
   if (cookieValue == "in") {
     window.location.href = "/logout";
     check_log.innerText = "Login";
-    username.innerText = "username";
+    username.innerHTML = "@"+currentUser;
+
     sign.style.display = "block";
   }
   else {

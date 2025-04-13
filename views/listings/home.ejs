@@ -1,10 +1,50 @@
 <% layout("/layouts/boilerplate.ejs") -%>
 <!-- <%= message %> -->
 <body>
-  <h2 class="home_head">Listings</h2>
+  <!-- <h2 class="home_head">Listings</h2> -->
+   <br>
+   <center>
+   <div class="features">
+    <div class="icons">
+      <i class="fa-solid fa-fire"></i><br>
+      <p>Trending</p>
+    </div>
+
+    <div class="icons">
+      <i class="fa-solid fa-bed"></i><br>
+      <p>Rooms</p>
+    </div>
+
+    <div class="icons">
+      <i class="fa-solid fa-mountain-city"></i><br>
+      <p>Iconic Cities</p>
+    </div>
+    <div class="icons">
+      <i class="fa-solid fa-mountain-sun"></i><br>
+      <p>Mountains</p>
+    </div>
+    <div class="icons">
+      <i class="fa-solid fa-castle"></i><br>
+      <p>Castles</p>
+    </div>
+    <div class="icons">
+      <i class="fa-solid fa-person-swimming"></i><br>
+      <p>Amazing Pools</p>
+    </div>
+    <div class="icons">
+      <i class="fa-solid fa-campground"></i><br>
+      <p>Camping</p>
+    </div>
+    <div class="icons">
+      <i class="fa-solid fa-farm"></i><br>
+      <p>Farms</p>
+    </div>
+   
+</div></center>
+
     <div class="row">
     <% for(let i of data){ %>
-        <div class="col-3">
+        <div class="col-4">
         <a href="/listings/<%=i._id%>" class="_decorate"><div class="card card_hover" style="width: 18rem;">
             <img src="<%=i.image.url %>" class="card-img-top  card_ img-home" alt="listing_image">
             <div class="card-body">

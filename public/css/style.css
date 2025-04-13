@@ -9,6 +9,10 @@ body {
 
 }
 
+.container-fluid{
+    height: 20px !important;;
+}
+
 
 .material-symbols-outlined {
     font-variation-settings:
@@ -71,8 +75,9 @@ body {
 
 .card {
     margin-bottom: 20px;
-    width: 309px !important;
+    width: 380px !important;
     height: 362px !important;
+    margin-left: 25px;
 }
 
 ._decorate {
@@ -137,7 +142,7 @@ body {
 
 .img-home {
     height: 250px;
-    width: 307px !important;
+    width: 378px !important;
 }
 
 .icons_footer {
@@ -205,4 +210,19 @@ body {
     height: 400px;
     width: 640px !important;
     justify-self: center !important;
+}
+
+
+.features{
+    width:60%;
+    font-size: small;
+    display:flex;
+    flex-direction: row;
+    margin-right:500px;
+    justify-content: space-around;
+    
+}
+
+.icons{
+    text-align: center;
 }
