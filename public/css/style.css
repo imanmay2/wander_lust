@@ -223,6 +223,13 @@ body {
     
 }
 
+
+
 .icons{
     text-align: center;
+    opacity: 0.6;
+}
+
+.icons:hover{
+    opacity: 1;
 }
