@@ -214,22 +214,68 @@ body {
 
 
 .features{
-    width:60%;
-    font-size: small;
+    width:75%;
+    font-size: 14px;
     display:flex;
     flex-direction: row;
     margin-right:500px;
+    align-items: center;
     justify-content: space-around;
-    
+    text-align: center;
+    margin: 0px auto;  /* code for centering the element. */
+   
 }
 
 
 
 .icons{
     text-align: center;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .icons:hover{
     opacity: 1;
+}
+
+.form-switch{
+    border:2px solid grey;
+    border-radius: 12px;
+    height:3rem;
+    width:15rem;
+    padding:9px;
+    margin-bottom: 10px !important;
+}
+
+.tax{
+    font-weight:700;
+    display:none;
+}
+
+.searchNav{
+   margin-left:400px;
+   
+
+}
+.search{
+    background-color: red!important;
+    color:white!important;
+    opacity: 0.9;
+    border-radius: 25px!important;
+    width: 115px !important;
+   
+   
+}
+
+.search:hover{
+    background-color: red!important;
+    color:white!important;
+    opacity:1;
+
+}
+.searchInp{
+    text-align: center;
+
+    width:275px!important;
+    border-radius: 25px!important;
+    
 }

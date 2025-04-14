@@ -24,8 +24,8 @@
       <p>Mountains</p>
     </div>
     <div class="icons">
-      <i class="fa-solid fa-castle"></i><br>
-      <p>Castles</p>
+      <i class="fa-solid fa-sailboat"></i><br>
+      <p>Boat</p>
     </div>
     <div class="icons">
       <i class="fa-solid fa-person-swimming"></i><br>
@@ -36,8 +36,12 @@
       <p>Camping</p>
     </div>
     <div class="icons">
-      <i class="fa-solid fa-farm"></i><br>
+      <i class="fa-brands fa-fort-awesome"></i><br>
       <p>Farms</p>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display Total after Taxes.</label>
     </div>
    
 </div></center>
@@ -50,7 +54,11 @@
             <div class="card-body">
               <p class="card-text"><b><%= i.location %></b><br>
                 <%= i.title %> <br>
-                &#8377;<b><%= i.price %></b> per night </p>
+                &#8377;<b><%= i.price %></b> per night <i class="tax"><U>+18% GST</U></i></p>
             </div>
           </div></a></div>
         <% } %></div>
+
+
+
+       

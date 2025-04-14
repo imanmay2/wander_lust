@@ -82,3 +82,16 @@ sign.addEventListener("click", () => {
   window.location.href = "/signup";
 })
 
+let form=document.querySelector(".form-switch");
+
+
+form.addEventListener("click",()=>{
+  let taxes=document.querySelectorAll(".tax");
+  for(tax of taxes){
+    if(tax.style.display=="inline"){
+      tax.style.display="none";
+    } else{
+      tax.style.display="inline";
+    }
+  }
+})
