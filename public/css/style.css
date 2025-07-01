@@ -54,19 +54,34 @@ body {
 }
 
 
+/* Apply full height to html and body */
+html, body {
+    height: 87vh;
+    margin: 0;
+}
+
+/* Wrapper flexbox layout */
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content grows to take available space */
+.wrapper > *:not(.footer) {
+    flex: 1;
+}
+
+/* Footer style */
 .footer {
-    /* margin-top: 327px; */
     background-color: #d9dfe6;
     height: 116px;
     width: 100%;
     text-align: center;
-    font-style: none;
     font-size: small;
     font-weight: 900;
-    margin-top: auto !important;
-    /* tried to fix the footer  */
-
 }
+
 
 
 .card_ {

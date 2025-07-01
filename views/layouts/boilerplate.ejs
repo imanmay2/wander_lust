@@ -18,77 +18,92 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
 
   <style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    </style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"><span class="material-symbols-outlined" id="logo">
-          explore
-        </span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="/listings/">Explore</a>
-          </li> 
-         
-          <li><div class="searchNav">
-            <form class="d-flex navbar-nav" role="search">
-              <input class="form-control me-2 searchInp" width="100px" type="search" placeholder="Search Destination" aria-label="Search">
-              <button class="btn btn-outline-success search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;Search</button>
-            </form>
-          </div></li>
-        </ul>
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="/listings/add">Airbnb your home</a>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn" id="sign"><b>SignUp</b></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn" id="username"></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn" id="check_log"></button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="container">
+  <div class="wrapper">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"><span class="material-symbols-outlined" id="logo">
+            explore
+          </span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="/listings/">Explore</a>
+            </li>
 
-
-
-    <% if(message.length) { %>
-      <center>
-        <div class="alert alert-success w-50 p-3  alert-dismissible fade show" role="alert">
-          <%= message %> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
+            <li>
+              <div class="searchNav">
+                <form class="d-flex navbar-nav" role="search">
+                  <input class="form-control me-2 searchInp" width="100px" type="search"
+                    placeholder="Search Destination" aria-label="Search">
+                  <button class="btn btn-outline-success search" type="submit"><i
+                      class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;Search</button>
+                </form>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/listings/add">Airbnb your home</a>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn" id="sign"><b>SignUp</b></button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn" id="username"></button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn" id="check_log"></button>
+            </li>
+          </ul>
         </div>
-      </center>
-      <% } %>
-
-        <% if(error.length) { %>
-          <center>
-            <div class="alert alert-danger w-50 p-3  alert-dismissible fade show" role="alert">
-              <%= error %> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-            </div>
-          </center>
-          <% } %>
+      </div>
+    </nav>
+    <div class="container">
 
 
 
-            <%- body %>
-  </div>
+      <% if(message.length) { %>
+        <center>
+          <div class="alert alert-success w-50 p-3  alert-dismissible fade show" role="alert">
+            <%= message %> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+          </div>
+        </center>
+        <% } %>
+
+          <% if(error.length) { %>
+            <center>
+              <div class="alert alert-danger w-50 p-3  alert-dismissible fade show" role="alert">
+                <%= error %> <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+
+              </div>
+            </center>
+            <% } %>
+
+
+
+              <%- body %>
+    </div>
   </div>
   <div class="footer">
     <br>
@@ -102,6 +117,8 @@
     <b>Wanderlust Privated Limit </b> <br>
     <b>Terms and Conditions</b>
   </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
