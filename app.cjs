@@ -26,6 +26,7 @@ app.engine("ejs", ejsMate);
 
 async function main() {
     await mongoose.connect(mongodb_url);
+    console.log("Connected to Database ! ");
 }
 
 
@@ -43,7 +44,7 @@ app.listen(port, (req, res) => {
 const store=MongoStore.create({
     mongoUrl:process.env.MONGO_ATLAS,
     crypto:{
-        secret:"my-super_star"
+        secret:process.env.secret
     },
     touchAfter:24*3600
 });
@@ -54,7 +55,7 @@ store.on(("error"),()=>{
 
 let sessionObj = {
     store:store,
-    secret: "mysecretCode",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true
 }
